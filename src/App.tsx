@@ -1,25 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
 
+import { v1 } from "uuid";
+import { Todolist } from "./Todolist";
+
+export type TasksType = {
+  id: string;
+  title: string;
+  isDone: boolean;
+};
 function App() {
+  const [tasks, setTasks] = useState<TasksType[]>([
+    { id: v1(), title: "Css", isDone: true },
+    { id: v1(), title: "React", isDone: false },
+    { id: v1(), title: "TypeScript", isDone: false },
+  ]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Todolist tasks={tasks} />
+    </>
   );
 }
 

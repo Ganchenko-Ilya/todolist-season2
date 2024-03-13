@@ -1,0 +1,27 @@
+.wrapperTasks > ul > li {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+}
+.wrapperTasks > ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.baseStyleTodo {
+  margin: 20px;
+  display: inline-block;
+}
+.inputAddTask {
+}
+.wrapperTasks {
+  display: flex;
+  justify-content: center;
+  margin:10px 0 10px;
+}
+.buttonsFilter{
+    text-align: center;
+}

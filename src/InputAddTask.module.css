@@ -1,0 +1,30 @@
+.textError{
+    color:red;
+    text-align: center;
+}
+.wrapper{
+    text-align: center;
+}
+.inputError{
+    border-style:none;
+    border-bottom: 1px solid red;
+    border-left: 1px solid red;
+}
+
+.inputError:focus{
+    outline: none;
+}
+.input:focus{
+    outline:  none
+
+}
+.input{
+    border-style:none;
+    border-bottom:1px solid grey;
+    border-left:1px solid grey;
+    margin-right: 5px;
+}
+.buttonIcon{
+    width:15px;
+    background-color: #fff;
+}

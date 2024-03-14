@@ -15,13 +15,35 @@
   margin: 20px;
   display: inline-block;
 }
-.inputAddTask {
-}
+
 .wrapperTasks {
   display: flex;
   justify-content: center;
-  margin:10px 0 10px;
+  margin: 5px 0 ;
 }
-.buttonsFilter{
-    text-align: center;
+.buttonsFilter {
+  text-align: center;
+}
+.img{
+    
+  height: 15px;
+}
+.buttonBaseFilter{
+  width:80px;
+  border-style: none;
+  border:1px grey solid;
+  border-radius: 5px;
+}
+.buttonActiveFilter{
+  width:80px;
+  background-color: aqua;
+  border-width:2px;
+  border-style: none;
+  border:1px black solid;
+  border-radius: 5px;
+
+
+}
+.taskIsDone{
+  opacity: 0.5;
 }

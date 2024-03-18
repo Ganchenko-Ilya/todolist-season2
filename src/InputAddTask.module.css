@@ -10,6 +10,10 @@
     border-bottom: 1px solid red;
     border-left: 1px solid red;
 }
+.inputError::placeholder{
+    color:red;
+    text-align: center;
+}
 
 .inputError:focus{
     outline: none;
@@ -18,13 +22,29 @@
     outline:  none
 
 }
+.input::placeholder{
+ text-align: center;
+}
 .input{
     border-style:none;
     border-bottom:1px solid grey;
     border-left:1px solid grey;
     margin-right: 5px;
+    
 }
 .buttonIcon{
     width:15px;
     background-color: #fff;
+}
+.inputEdit{
+    border-style:none;
+    border-bottom:1px solid grey;
+    border-left:1px solid grey;
+    margin-right: 5px;
+    display: inline-block;
+    
+}
+.inputEdit:focus{
+    outline:none;
+    font-size: 16px;
 }

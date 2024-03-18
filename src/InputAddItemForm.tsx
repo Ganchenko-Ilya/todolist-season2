@@ -2,10 +2,11 @@ import { ChangeEvent, KeyboardEvent, useState } from "react";
 import s from "./InputAddTask.module.css";
 import addIcon from "./add-icon.png";
 type InputAddTaskProps = {
-  addTask: (value: string) => void;
+  addItem: (value: string) => void;
+  placeholder?: string;
 };
-export const InputAddTask = (props: InputAddTaskProps) => {
-  const { addTask } = props;
+export const InputAddItemForm = (props: InputAddTaskProps) => {
+  const { addItem, placeholder } = props;
   const [value, setValue] = useState<string>("");
   const [error, setError] = useState<string>("");
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -14,7 +15,7 @@ export const InputAddTask = (props: InputAddTaskProps) => {
   };
   const onClickOnKeyDownHandler = () => {
     if (value.trim()) {
-      addTask(value);
+      addItem(value);
     } else {
       setError("Incorrect input");
     }
@@ -34,6 +35,7 @@ export const InputAddTask = (props: InputAddTaskProps) => {
         onChange={onChangeHandler}
         type="text"
         value={value}
+        placeholder={placeholder}
       />
       <img onClick={onClickHandler} className={s.buttonIcon} src={addIcon} alt="add" />
       <div className={s.textError}>{error}</div>

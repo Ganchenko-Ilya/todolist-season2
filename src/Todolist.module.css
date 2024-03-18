@@ -6,44 +6,55 @@
 .wrapperTasks > ul {
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+
 }
 
 .baseStyleTodo {
-  margin: 20px;
-  display: inline-block;
+  margin: 20px ;
 }
 
 .wrapperTasks {
   display: flex;
   justify-content: center;
-  margin: 5px 0 ;
+  margin: 5px 0;
+  
+  
 }
 .buttonsFilter {
   text-align: center;
 }
-.img{
-    
-  height: 15px;
+.img {
+  width: 15px;
 }
-.buttonBaseFilter{
-  width:80px;
+.buttonBaseFilter {
+  width: 80px;
   border-style: none;
-  border:1px grey solid;
+  border: 1px grey solid;
   border-radius: 5px;
 }
-.buttonActiveFilter{
-  width:80px;
+.buttonActiveFilter {
+  width: 80px;
   background-color: aqua;
-  border-width:2px;
+  border-width: 2px;
   border-style: none;
-  border:1px black solid;
+  border: 1px black solid;
   border-radius: 5px;
-
-
 }
-.taskIsDone{
+.taskIsDone {
   opacity: 0.5;
+}
+.headerTodo {
+  text-align: center;
+}
+.headerTodo img {
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  right: -13px;
+  top: 6px;
+}
+.headerTodo h3 {
+  margin: 0;
+  position: relative;
+  display: inline-block;
 }

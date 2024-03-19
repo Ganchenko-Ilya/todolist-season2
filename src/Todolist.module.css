@@ -2,59 +2,65 @@
   list-style-type: none;
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 5px;
 }
 .wrapperTasks > ul {
   margin: 0;
   padding: 0;
-
+  margin-bottom: 5px;
+}
+.wrapperTasks ul li:last-child {
+  margin: 0;
 }
 
 .baseStyleTodo {
-  margin: 20px ;
+  margin: 20px;
 }
 
 .wrapperTasks {
   display: flex;
   justify-content: center;
   margin: 5px 0;
-  
-  
 }
-.buttonsFilter {
-  text-align: center;
-}
-.img {
-  width: 15px;
-}
-.buttonBaseFilter {
-  width: 80px;
-  border-style: none;
-  border: 1px grey solid;
-  border-radius: 5px;
-}
-.buttonActiveFilter {
-  width: 80px;
-  background-color: aqua;
-  border-width: 2px;
-  border-style: none;
-  border: 1px black solid;
-  border-radius: 5px;
-}
+
 .taskIsDone {
   opacity: 0.5;
 }
 .headerTodo {
-  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 .headerTodo img {
-  width: 15px;
-  height: 15px;
-  position: absolute;
-  right: -13px;
-  top: 6px;
+  width: 28px;
+  height: 28px;
 }
 .headerTodo h3 {
-  margin: 0;
-  position: relative;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+}
+.paper {
+  padding: 20px;
+}
+
+.paper h3 span {
+  font-size: 30px;
+}
+ul li span {
+  font-size: 20px;
+  margin-right: 5px;
+}
+.wrapperCheckbox {
+  display: flex;
+  align-items: center;
+}
+.wrapperCheckbox img {
+  cursor: pointer;
+  width: 23px;
+  height: 23px;
+}
+
+.buttonFilters{
+  display: flex;
+  justify-content: space-between;
 }

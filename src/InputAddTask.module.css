@@ -1,50 +1,17 @@
-.textError{
-    color:red;
-    text-align: center;
+.textError {
+  color: red;
+  text-align: center;
 }
-.wrapper{
-    text-align: center;
-}
-.inputError{
-    border-style:none;
-    border-bottom: 1px solid red;
-    border-left: 1px solid red;
-}
-.inputError::placeholder{
-    color:red;
-    text-align: center;
+.wrapper {
+  display: flex;
+  align-items: center;
 }
 
-.inputError:focus{
-    outline: none;
+span {
+  font-size: 30px;
 }
-.input:focus{
-    outline:  none
-
-}
-.input::placeholder{
- text-align: center;
-}
-.input{
-    border-style:none;
-    border-bottom:1px solid grey;
-    border-left:1px solid grey;
-    margin-right: 5px;
-    
-}
-.buttonIcon{
-    width:15px;
-    background-color: #fff;
-}
-.inputEdit{
-    border-style:none;
-    border-bottom:1px solid grey;
-    border-left:1px solid grey;
-    margin-right: 5px;
-    display: inline-block;
-    
-}
-.inputEdit:focus{
-    outline:none;
-    font-size: 16px;
+.editWrapper .textField input {
+  padding: 0 5px;
+  width: 120px;
+  font-size: 18px;
 }

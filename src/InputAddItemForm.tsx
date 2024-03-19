@@ -1,6 +1,8 @@
 import { ChangeEvent, KeyboardEvent, useState } from "react";
 import s from "./InputAddTask.module.css";
-import addIcon from "./add-icon.png";
+
+import AddIcon from "@mui/icons-material/Add";
+import { TextField } from "@mui/material";
 type InputAddTaskProps = {
   addItem: (value: string) => void;
   placeholder?: string;
@@ -29,15 +31,15 @@ export const InputAddItemForm = (props: InputAddTaskProps) => {
   };
   return (
     <div className={s.wrapper}>
-      <input
-        className={error ? s.inputError : s.input}
-        onKeyDown={onKeyDownHandler}
-        onChange={onChangeHandler}
-        type="text"
+      <TextField
         value={value}
         placeholder={placeholder}
+        error={!!error}
+        variant="outlined"
+        onKeyDown={onKeyDownHandler}
+        onChange={onChangeHandler}
       />
-      <img onClick={onClickHandler} className={s.buttonIcon} src={addIcon} alt="add" />
+      <AddIcon onClick={onClickHandler} />
       <div className={s.textError}>{error}</div>
     </div>
   );

@@ -1,28 +1,21 @@
 import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
-import s from "./InputAddTask.module.css";
+import s from './InputAddTask.module.css'
+import { TextField } from "@mui/material";
 type EditableSpanPropsType = {
   title: string;
   editTitle: (newTitle: string) => void;
 };
 export const EditableSpan = (props: EditableSpanPropsType) => {
-  let divRef = useRef<HTMLElement | null>(null);
-  const [widthDiv, setWidthDiv] = useState(0);
   const [editMode, setEditMode] = useState(false);
-  useEffect(() => {
-    if (divRef.current) setWidthDiv(divRef.current.offsetWidth);
-  }, [editMode]);
 
   const { title, editTitle } = props;
 
   const [value, setValue] = useState("");
   const [error, setError] = useState<string>("");
-  const [width, setWidth] = useState<number>(0);
-  console.log(widthDiv, title);
+
   const onDoubleClickHanlder = () => {
     setEditMode(true);
     setValue(title);
-
-    setWidth(widthDiv);
   };
   const onBlurHanlder = () => {
     if (value.trim()) {
@@ -32,7 +25,6 @@ export const EditableSpan = (props: EditableSpanPropsType) => {
       setEditMode(false);
     } else {
       setError("Incorrect input");
-      setWidth(80);
     }
   };
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -49,42 +41,28 @@ export const EditableSpan = (props: EditableSpanPropsType) => {
         setEditMode(false);
       } else {
         setError("Incorrect input");
-        setWidth(80);
       }
     }
-
-    if (e.key === "Backspace") {
-      if (value.trim()) {
-        setWidth((width) => width - 8.7);
-      }
-    } else if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") {
-      setWidth((width) => width + 8.7);
-    }
-  };
-
-  const inputStyle = {
-    width: `${width + 10}px`,
   };
 
   return (
-    <>
+    <div className={s.editWrapper}>
       {editMode ? (
-        <input
+        <TextField
+          error={!!error}
+          defaultValue="Hello World"
+          variant="filled"
+          autoFocus
+          helperText={error}
+          onBlur={onBlurHanlder}
+          onKeyDown={onKeyDownHanlder}
           onChange={onChangeHandler}
           value={value}
-          autoFocus
-          onBlur={onBlurHanlder}
-          type="text"
-          onKeyDown={onKeyDownHanlder}
-          className={error ? s.inputError : s.inputEdit}
-          placeholder={error}
-          style={inputStyle}
-        ></input>
+          className={s.textField}
+        />
       ) : (
-        <span ref={divRef} style={{ fontSize: "16px" }} onDoubleClick={onDoubleClickHanlder}>
-          {title}
-        </span>
+        <span onDoubleClick={onDoubleClickHanlder}>{title}</span>
       )}
-    </>
+    </div>
   );
 };

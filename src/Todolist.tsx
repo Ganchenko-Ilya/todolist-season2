@@ -4,6 +4,8 @@ import s from "./Todolist.module.css";
 import { InputAddItemForm } from "./InputAddItemForm";
 import deleteIcon from "./delete-icon.png";
 import { EditableSpan } from "./EditableSpan";
+import { Button, Checkbox, Paper } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 type TodolistProps = {
   tasks: TasksType[];
@@ -29,7 +31,7 @@ export const Todolist = (props: TodolistProps) => {
     titleTodo,
     deleteTodo,
     editTitleTask,
-    editTitleTodo
+    editTitleTodo,
   } = props;
 
   const [filter, setFilter] = useState<FilterType>("All");
@@ -41,10 +43,10 @@ export const Todolist = (props: TodolistProps) => {
   const onChangeStatusHandler = (id: string, e: ChangeEvent<HTMLInputElement>) => {
     changeStatusTask(tId, id, e.currentTarget.checked);
   };
-  const onCLickDeleteTaskHenlder = (id: string) => {
+  const onCLickDeleteTaskHanlder = (id: string) => {
     deleteTask(tId, id);
   };
-  const onCLickDeleteTodoHenlder = () => {
+  const onCLickDeleteTodoHanlder = () => {
     deleteTodo(tId);
   };
   const addTaskHandler = (value: string) => {
@@ -54,7 +56,7 @@ export const Todolist = (props: TodolistProps) => {
     editTitleTask(tId, id, newTitle);
   };
   const editTitleHandlerTodo = (newTitle: string) => {
-    editTitleTodo(tId,newTitle)
+    editTitleTodo(tId, newTitle);
   };
 
   const filteredTasks =
@@ -66,59 +68,60 @@ export const Todolist = (props: TodolistProps) => {
 
   return (
     <div className={s.baseStyleTodo}>
-      <div className={s.headerTodo}>
-        <h3>
-          <EditableSpan editTitle={editTitleHandlerTodo} title={titleTodo} />
-          <img onClick={onCLickDeleteTodoHenlder} src={deleteIcon} alt="deleteTodo" />
-        </h3>
-      </div>
+      <Paper elevation={3} className={s.paper}>
+        <div className={s.headerTodo}>
+          <h3>
+            <EditableSpan editTitle={editTitleHandlerTodo} title={titleTodo} />
+            <DeleteIcon onClick={onCLickDeleteTodoHanlder}/>
+          </h3>
+        </div>
 
-      <InputAddItemForm addItem={addTaskHandler} />
-      <div className={s.wrapperTasks}>
-        <ul>
-          {filteredTasks.map((el) => (
-            <li className={el.isDone ? s.taskIsDone : ""} key={el.id}>
-              <EditableSpan
-                title={el.title}
-                editTitle={(newTitle) => editTitleHandler(el.id, newTitle)}
-              />
-              <div>
-                <input
-                  onChange={(e) => onChangeStatusHandler(el.id, e)}
-                  type="checkbox"
-                  checked={el.isDone}
-                />{" "}
-                <img
-                  onClick={() => onCLickDeleteTaskHenlder(el.id)}
-                  className={s.img}
-                  src={deleteIcon}
-                  alt="deleteTask"
+        <InputAddItemForm addItem={addTaskHandler} />
+        <div className={s.wrapperTasks}>
+          <ul>
+            {filteredTasks.map((el) => (
+              <li className={el.isDone ? s.taskIsDone : ""} key={el.id}>
+                <EditableSpan
+                  title={el.title}
+                  editTitle={(newTitle) => editTitleHandler(el.id, newTitle)}
                 />
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className={s.buttonsFilter}>
-        <button
-          className={filter === "All" ? s.buttonActiveFilter : s.buttonBaseFilter}
-          onClick={() => onClickFilterHanlder("All")}
-        >
-          All
-        </button>
-        <button
-          className={filter === "Active" ? s.buttonActiveFilter : s.buttonBaseFilter}
-          onClick={() => onClickFilterHanlder("Active")}
-        >
-          Active
-        </button>
-        <button
-          className={filter === "Complited" ? s.buttonActiveFilter : s.buttonBaseFilter}
-          onClick={() => onClickFilterHanlder("Complited")}
-        >
-          Complited
-        </button>
-      </div>
+                <div className={s.wrapperCheckbox}>
+                  <Checkbox
+                    sx={{ width: "0px", height: "18px" }}
+                    onChange={(e) => onChangeStatusHandler(el.id, e)}
+                    size="small"
+                    checked={el.isDone}
+                  />
+                  <DeleteIcon onClick={() => onCLickDeleteTaskHanlder(el.id)} />
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className={s.buttonFilters}>
+          <Button
+            size="small"
+            onClick={() => onClickFilterHanlder("All")}
+            variant={filter === "All" ? "contained" : "outlined"}
+          >
+            All
+          </Button>
+          <Button
+            size="small"
+            onClick={() => onClickFilterHanlder("Active")}
+            variant={filter === "Active" ? "contained" : "outlined"}
+          >
+            Active
+          </Button>
+          <Button
+            size="small"
+            onClick={() => onClickFilterHanlder("Complited")}
+            variant={filter === "Complited" ? "contained" : "outlined"}
+          >
+            Complited
+          </Button>
+        </div>
+      </Paper>
     </div>
   );
 };

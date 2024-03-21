@@ -1,5 +1,5 @@
 import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
-import s from './InputAddTask.module.css'
+import s from "./EditableSpan.module.css";
 import { TextField } from "@mui/material";
 type EditableSpanPropsType = {
   title: string;
@@ -49,16 +49,15 @@ export const EditableSpan = (props: EditableSpanPropsType) => {
     <div className={s.editWrapper}>
       {editMode ? (
         <TextField
+          className={s.textField}
           error={!!error}
-          defaultValue="Hello World"
           variant="filled"
           autoFocus
-          helperText={error}
           onBlur={onBlurHanlder}
           onKeyDown={onKeyDownHanlder}
           onChange={onChangeHandler}
           value={value}
-          className={s.textField}
+          placeholder={error ? error : ""}
         />
       ) : (
         <span onDoubleClick={onDoubleClickHanlder}>{title}</span>

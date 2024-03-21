@@ -1,8 +1,8 @@
 import { useState } from "react";
 import s from "./App.module.css";
 import { v1 } from "uuid";
-import { Todolist } from "./Todolist";
-import { InputAddItemForm } from "./InputAddItemForm";
+import { Todolist } from "../todolist/Todolist";
+import { InputAddItemForm } from "../inputAddItemForm/InputAddItemForm";
 import { AppBar, Button, Container, IconButton, Toolbar, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
@@ -50,6 +50,12 @@ function App() {
   const deleteTask = (tId: string, id: string) => {
     setTasks({ ...tasks, [tId]: tasks[tId].filter((el) => el.id !== id) });
   };
+  const editTitleTask = (tId: string, id: string, newTitle: string) => {
+    setTasks({
+      ...tasks,
+      [tId]: tasks[tId].map((el) => (el.id === id ? { ...el, title: newTitle } : el)),
+    });
+  };
   const deleteTodo = (tId: string) => {
     setTodolists(todolists.filter((el) => el.id !== tId));
     const newTasks = { ...tasks };
@@ -57,16 +63,12 @@ function App() {
     setTasks(newTasks);
   };
   const addTodo = (title: string) => {
-    const newTodo: TodolistsType = { id: v1(), title };
+    const newTodoId = v1();
+    const newTodo: TodolistsType = { id: newTodoId, title };
     setTodolists([newTodo, ...todolists]);
     setTasks({ ...tasks, [newTodo.id]: [] });
   };
-  const editTitleTask = (tId: string, id: string, newTitle: string) => {
-    setTasks({
-      ...tasks,
-      [tId]: tasks[tId].map((el) => (el.id === id ? { ...el, title: newTitle } : el)),
-    });
-  };
+
   const editTitleTodo = (tId: string, newTitle: string) => {
     setTodolists(todolists.map((el) => (el.id === tId ? { ...el, title: newTitle } : el)));
   };
@@ -86,7 +88,7 @@ function App() {
       </AppBar>
       <Container maxWidth="lg">
         <div className={s.inputTodo}>
-          <InputAddItemForm addItem={addTodo} placeholder="Add List" />
+          <InputAddItemForm addItem={addTodo} helpText="Add List" />
         </div>
         <div className={s.todolistsWrapper}>
           {todolists.map((el) => (

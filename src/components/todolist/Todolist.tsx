@@ -1,9 +1,9 @@
 import { ChangeEvent, useState } from "react";
-import { TasksType } from "./App";
+import { TasksType } from "../app/App";
 import s from "./Todolist.module.css";
-import { InputAddItemForm } from "./InputAddItemForm";
-import deleteIcon from "./delete-icon.png";
-import { EditableSpan } from "./EditableSpan";
+import { InputAddItemForm } from "../inputAddItemForm/InputAddItemForm";
+
+import { EditableSpan } from "../editableSpan/EditableSpan";
 import { Button, Checkbox, Paper } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -72,11 +72,11 @@ export const Todolist = (props: TodolistProps) => {
         <div className={s.headerTodo}>
           <h3>
             <EditableSpan editTitle={editTitleHandlerTodo} title={titleTodo} />
-            <DeleteIcon onClick={onCLickDeleteTodoHanlder}/>
+            <DeleteIcon onClick={onCLickDeleteTodoHanlder} />
           </h3>
         </div>
 
-        <InputAddItemForm addItem={addTaskHandler} />
+        <InputAddItemForm addItem={addTaskHandler} helpText='Add Task' />
         <div className={s.wrapperTasks}>
           <ul>
             {filteredTasks.map((el) => (

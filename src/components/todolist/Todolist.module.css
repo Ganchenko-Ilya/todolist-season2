@@ -62,5 +62,5 @@ ul li span {
 
 .buttonFilters{
   display: flex;
-  justify-content: space-between;
-}
+  justify-content: center;
+} 

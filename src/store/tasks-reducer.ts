@@ -1,9 +1,38 @@
 import { v1 } from "uuid";
-import { TaskObjType } from "../components/app/App";
-import { AddTodoTypeAC } from "./todolists-reducer";
 
-type ActionsType = AddTaskTypeAC | ChangeStatusTaskTypeAC | DeleteTaskTypeAC | EditTitleTaskTypeAC | AddTodoTypeAC;
-export const tasksReducer = (state: TaskObjType, action: ActionsType): TaskObjType => {
+import { AddTodoTypeAC, DeleteTodoTypeAC, todolist1Id, todolist2Id } from "./todolists-reducer";
+
+type ActionsType =
+  | AddTaskTypeAC
+  | ChangeStatusTaskTypeAC
+  | DeleteTaskTypeAC
+  | EditTitleTaskTypeAC
+  | AddTodoTypeAC
+  | DeleteTodoTypeAC;
+export type TasksType = {
+  id: string;
+  title: string;
+  isDone: boolean;
+};
+export type TaskObjType = {
+  [key: string]: TasksType[];
+};
+const initialState: TaskObjType = {
+  [todolist1Id]: [
+    { id: v1(), title: "Css", isDone: true },
+    { id: v1(), title: "React", isDone: false },
+    { id: v1(), title: "TypeScript", isDone: false },
+  ],
+  [todolist2Id]: [
+    { id: v1(), title: "book", isDone: true },
+    { id: v1(), title: "bread", isDone: false },
+    { id: v1(), title: "milk", isDone: false },
+  ],
+};
+export const tasksReducer = (
+  state: TaskObjType = initialState,
+  action: ActionsType
+): TaskObjType => {
   switch (action.type) {
     case "ADD-TASK": {
       return {
@@ -30,8 +59,13 @@ export const tasksReducer = (state: TaskObjType, action: ActionsType): TaskObjTy
         ),
       };
     }
-    case 'ADD-TODO':{
-        return {...state,[action.tId]:[]}
+    case "ADD-TODO": {
+      return { ...state, [action.tId]: [] };
+    }
+    case "DELETE-TODO": {
+      const newObj = { ...state };
+      delete newObj[action.tId];
+      return newObj;
     }
     default:
       return state;

@@ -1,6 +1,6 @@
 import { v1 } from "uuid";
-import { addTodoAC, deleteTodoAC, editTitleAC, todolistReducer } from "./todolists-reducer";
-import { TodolistsType } from "../components/app/App";
+import { TodolistsType, addTodoAC, deleteTodoAC, editTitleTodoAC, todolistReducer } from "./todolists-reducer";
+
 let todolist: TodolistsType[] = [];
 let todolist1Id = "";
 let todolist2Id = "";
@@ -34,7 +34,7 @@ test("Add todolist", () => {
   expect(newState[0].id).toBe(todolist3Id);
 });
 test("Change title of todolist by id", () => {
-  const newState = todolistReducer(todolist, editTitleAC(todolist2Id, "Top cinema"));
+  const newState = todolistReducer(todolist, editTitleTodoAC(todolist2Id, "Top cinema"));
   expect(newState[1].title).toBe("Top cinema");
   expect(newState[1].id).toBe(todolist2Id);
   expect(newState[0].title).toBe("What to learn");

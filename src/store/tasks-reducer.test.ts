@@ -1,13 +1,14 @@
 import { v1 } from "uuid";
-import { TaskObjType } from "../components/app/App";
+
 import {
+  TaskObjType,
   addTaskAC,
   changeStatusTaskAC,
   deleteTaskAC,
   editTitleTaskAC,
   tasksReducer,
 } from "./tasks-reducer";
-import { addTodoAC } from "./todolists-reducer";
+import { addTodoAC, deleteTodoAC } from "./todolists-reducer";
 
 let todolist1Id = "";
 let todolist2Id = "";
@@ -76,3 +77,13 @@ test("Add todolist and add  empty array for  tasks", () => {
   expect(Object.keys(newState)[2]).toBe(todolist3Id);
   expect(newState[todolist3Id].length).toBe(0);
 });
+test('Delete key for Tasks after delete todolis',() => {
+  const newState = tasksReducer(tasks, deleteTodoAC(todolist1Id));
+
+  expect(Object.keys(newState).length).toBe(1)
+  expect(Object.keys(newState)[0]).toBe(todolist2Id)
+  expect(newState[todolist1Id]).toBeUndefined()
+
+
+
+})

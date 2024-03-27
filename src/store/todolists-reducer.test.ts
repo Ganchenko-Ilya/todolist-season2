@@ -1,5 +1,11 @@
 import { v1 } from "uuid";
-import { TodolistsType, addTodoAC, deleteTodoAC, editTitleTodoAC, todolistReducer } from "./todolists-reducer";
+import {
+  TodolistsType,
+  addTodoAC,
+  deleteTodoAC,
+  editTitleTodoAC,
+  todolistReducer,
+} from "./todolists-reducer";
 
 let todolist: TodolistsType[] = [];
 let todolist1Id = "";
@@ -26,7 +32,7 @@ test("Delete todolist by Id", () => {
 
 test("Add todolist", () => {
   const todolist3Id = v1();
-  const newState = todolistReducer(todolist, addTodoAC(todolist3Id,"Top books"));
+  const newState = todolistReducer(todolist, addTodoAC(todolist3Id, "Top books"));
   expect(newState.length).toBe(3);
   expect(newState[0].title).toBe("Top books");
   expect(newState[2].id).toBe(todolist2Id);

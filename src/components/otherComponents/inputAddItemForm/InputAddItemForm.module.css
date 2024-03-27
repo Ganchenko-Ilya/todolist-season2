@@ -1,13 +1,7 @@
-
 .wrapper {
   display: flex;
   align-items: center;
 }
 .wrapper .inputError input::placeholder {
   color: red;
-  
-  
 }
-
-
-

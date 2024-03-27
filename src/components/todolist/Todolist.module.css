@@ -24,9 +24,6 @@
   margin: 5px 0;
 }
 
-.taskIsDone {
-  opacity: 0.5;
-}
 .headerTodo {
   display: flex;
   justify-content: center;
@@ -50,17 +47,8 @@ ul li span {
   font-size: 20px;
   margin-right: 5px;
 }
-.wrapperCheckbox {
-  display: flex;
-  align-items: center;
-}
-.wrapperCheckbox img {
-  cursor: pointer;
-  width: 23px;
-  height: 23px;
-}
 
-.buttonFilters{
+.buttonFilters {
   display: flex;
   justify-content: center;
-} 
+}

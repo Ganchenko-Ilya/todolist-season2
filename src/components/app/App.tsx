@@ -1,7 +1,7 @@
 import s from "./App.module.css";
 import { v1 } from "uuid";
 import { Todolist } from "../todolist/Todolist";
-import { InputAddItemForm } from "../inputAddItemForm/InputAddItemForm";
+import { InputAddItemForm } from "../otherComponents/inputAddItemForm/InputAddItemForm";
 import { AppBar, Button, Container, IconButton, Toolbar, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,22 +12,34 @@ import {
   deleteTodoAC,
   editTitleTodoAC,
 } from "../../store/todolists-reducer";
+import { useCallback } from "react";
 
-function App() {
+const App = () => {
+  console.log("App");
+
   const dispatch = useDispatch();
   const todolists = useSelector<RootReducerType, TodolistsType[]>((state) => state.todolists);
 
-  const deleteTodo = (tId: string) => {
-    dispatch(deleteTodoAC(tId));
-  };
-  const addTodo = (title: string) => {
-    const newTodoId = v1();
-    dispatch(addTodoAC(newTodoId, title));
-  };
+  const deleteTodo = useCallback(
+    (tId: string) => {
+      dispatch(deleteTodoAC(tId));
+    },
+    [dispatch]
+  );
+  const addTodo = useCallback(
+    (title: string) => {
+      const newTodoId = v1();
+      dispatch(addTodoAC(newTodoId, title));
+    },
+    [dispatch]
+  );
 
-  const editTitleTodo = (tId: string, newTitle: string) => {
-    dispatch(editTitleTodoAC(tId, newTitle));
-  };
+  const editTitleTodo = useCallback(
+    (tId: string, newTitle: string) => {
+      dispatch(editTitleTodoAC(tId, newTitle));
+    },
+    [dispatch]
+  );
 
   return (
     <div>
@@ -60,6 +72,6 @@ function App() {
       </Container>
     </div>
   );
-}
+};
 
 export default App;

@@ -1,0 +1,12 @@
+.wrapperCheckbox img {
+  cursor: pointer;
+  width: 23px;
+  height: 23px;
+}
+.taskIsDone {
+  opacity: 0.5;
+}
+.wrapperCheckbox {
+  display: flex;
+  align-items: center;
+}

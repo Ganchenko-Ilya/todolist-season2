@@ -1,19 +1,20 @@
-import { ChangeEvent, KeyboardEvent, useState } from "react";
+import React, { ChangeEvent, KeyboardEvent, useCallback, useState } from "react";
 import s from "./InputAddItemForm.module.css";
 
 import AddIcon from "@mui/icons-material/Add";
 import { TextField } from "@mui/material";
 type InputAddTaskProps = {
   addItem: (value: string) => void;
-  helpText:string
+  helpText: string;
 };
-export const InputAddItemForm = (props: InputAddTaskProps) => {
+export const InputAddItemForm = React.memo((props: InputAddTaskProps) => {
+  console.log("InputAddItemForm");
   const { addItem, helpText } = props;
   const [value, setValue] = useState<string>("");
   const [error, setError] = useState<string>("");
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.currentTarget.value);
-    setError("");
+    if (error) setError("");
   };
   const onClickOnKeyDownHandler = () => {
     if (value.trim()) {
@@ -23,16 +24,19 @@ export const InputAddItemForm = (props: InputAddTaskProps) => {
     }
     setValue("");
   };
-  const onClickHandler = () => {
+  const onClickHandler = useCallback(() => {
     onClickOnKeyDownHandler();
-  };
-  const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") onClickOnKeyDownHandler();
-  };
+  }, [onClickOnKeyDownHandler]);
+  const onKeyDownHandler = useCallback(
+    (e: KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "Enter") onClickOnKeyDownHandler();
+    },
+    [onClickOnKeyDownHandler]
+  );
   return (
     <div className={s.wrapper}>
       <TextField
-        className={error ? s.inputError : ''}
+        className={error ? s.inputError : ""}
         value={value}
         placeholder={error ? error : helpText}
         error={!!error}
@@ -43,4 +47,4 @@ export const InputAddItemForm = (props: InputAddTaskProps) => {
       <AddIcon onClick={onClickHandler} />
     </div>
   );
-};
+});

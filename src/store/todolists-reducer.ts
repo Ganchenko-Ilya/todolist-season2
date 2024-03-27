@@ -1,19 +1,20 @@
 import { v1 } from "uuid";
 
-type ActionsType = DeleteTodoTypeAC | AddTodoTypeAC | EditTitleTodoTypeAC;
+export type ActionsTodolistsType = DeleteTodoTypeAC | AddTodoTypeAC | EditTitleTodoTypeAC;
 export type TodolistsType = {
   id: string;
   title: string;
 };
 export const todolist1Id = v1();
 export const todolist2Id = v1();
-const initialState: TodolistsType[] = [
+export const initialTodolistsState: TodolistsType[] = [
   { id: todolist1Id, title: "What to learn" },
   { id: todolist2Id, title: "What to buy" },
 ];
+
 export const todolistReducer = (
-  state: TodolistsType[] = initialState,
-  action: ActionsType
+  state: TodolistsType[] = initialTodolistsState,
+  action: ActionsTodolistsType
 ): TodolistsType[] => {
   switch (action.type) {
     case "DELETE-TODO": {
@@ -40,3 +41,4 @@ export const editTitleTodoAC = (tId: string, title: string) =>
 export type DeleteTodoTypeAC = ReturnType<typeof deleteTodoAC>;
 export type AddTodoTypeAC = ReturnType<typeof addTodoAC>;
 export type EditTitleTodoTypeAC = ReturnType<typeof editTitleTodoAC>;
+type todolistsReducerType = typeof todolistReducer;

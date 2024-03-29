@@ -5,7 +5,8 @@ import s from "./Task.module.css";
 import React, { ChangeEvent, useCallback } from "react";
 
 import { TasksType } from "../../../store/tasks-reducer";
-type TaskTypeProps = {
+
+export type TaskTypeProps = {
   el: TasksType;
   editTitle: (id: string, newTitle: string) => void;
   onChangeStatus: (id: string, status: boolean) => void;
@@ -32,6 +33,7 @@ export const Task = React.memo((props: TaskTypeProps) => {
     deleteTask(id);
   }, [deleteTask]);
   return (
+    <div className={s.wrapperTasks}>
     <li className={isDone ? s.taskIsDone : ""}>
       <EditableSpan title={title} editTitle={editTitleHandlerTask} />
       <div className={s.wrapperCheckbox}>
@@ -41,8 +43,11 @@ export const Task = React.memo((props: TaskTypeProps) => {
           size="small"
           checked={isDone}
         />
+        
         <DeleteIcon onClick={onCLickDeleteTaskHanlder} />
+        
       </div>
     </li>
+    </div>
   );
 });

@@ -31,14 +31,13 @@ export const todolistReducer = (
   }
 };
 
-export const deleteTodoAC = (tId: string) => ({ type: "DELETE-TODO", tId } as const);
+export const deleteTodoAC = (tId: string) => ({ type: "DELETE-TODO", tId }) as const;
 
 export const addTodoAC = (tId: string, title: string) =>
-  ({ type: "ADD-TODO", tId, title } as const);
+  ({ type: "ADD-TODO", tId, title }) as const;
 export const editTitleTodoAC = (tId: string, title: string) =>
-  ({ type: "EDIT-TITLE", tId, title } as const);
+  ({ type: "EDIT-TITLE", tId, title }) as const;
 
 export type DeleteTodoTypeAC = ReturnType<typeof deleteTodoAC>;
 export type AddTodoTypeAC = ReturnType<typeof addTodoAC>;
 export type EditTitleTodoTypeAC = ReturnType<typeof editTitleTodoAC>;
-type todolistsReducerType = typeof todolistReducer;

@@ -18,6 +18,7 @@ import {
 } from "../../store/tasks-reducer";
 import { Task } from "./Task/Task";
 
+
 type TodolistProps = {
   tId: string;
   titleTodo: string;
@@ -29,8 +30,10 @@ type FilterType = "All" | "Active" | "Complited";
 
 export const Todolist = React.memo((props: TodolistProps) => {
   console.log("Todolist");
-
+  
   const { tId, titleTodo, deleteTodo, editTitleTodo } = props;
+  console.log(["storybook-button", `storybook-button--${1}`, " mode"].join(" "));
+
   const tasks = useSelector<RootReducerType, TasksType[]>((state) => state.tasks[tId]);
   const dispatch = useDispatch();
   const [filter, setFilter] = useState<FilterType>("All");
@@ -43,42 +46,42 @@ export const Todolist = React.memo((props: TodolistProps) => {
     (id: string, status: boolean) => {
       dispatch(changeStatusTaskAC(tId, id, status));
     },
-    [dispatch]
+    [dispatch, tId]
   );
   const deleteTask = useCallback(
     (id: string) => {
       dispatch(deleteTaskAC(tId, id));
     },
-    [dispatch]
+    [dispatch, tId]
   );
   const onCLickDeleteTodoHanlder = useCallback(() => {
     deleteTodo(tId);
-  }, [dispatch]);
+  }, [tId]);
   const addTaskHandler = useCallback(
     (value: string) => {
       dispatch(addTaskAC(tId, value));
     },
-    [dispatch]
+    [dispatch, tId]
   );
   const editTitleTask = useCallback(
     (id: string, newTitle: string) => {
       dispatch(editTitleTaskAC(tId, id, newTitle));
     },
-    [dispatch]
+    [dispatch, tId]
   );
   const editTitleHandlerTodo = useCallback(
     (newTitle: string) => {
       editTitleTodo(tId, newTitle);
     },
-    [dispatch]
+    [tId]
   );
 
   const filteredTasks =
     filter === "All"
       ? tasks
       : filter === "Active"
-      ? tasks.filter((el) => !el.isDone)
-      : tasks.filter((el) => el.isDone);
+        ? tasks.filter((el) => !el.isDone)
+        : tasks.filter((el) => el.isDone);
 
   return (
     <div className={s.baseStyleTodo}>
@@ -91,19 +94,23 @@ export const Todolist = React.memo((props: TodolistProps) => {
         </div>
 
         <InputAddItemForm addItem={addTaskHandler} helpText="Add Task" />
-        <div className={s.wrapperTasks}>
-          <ul>
-            {filteredTasks.map((el) => (
-              <Task
-                key={el.id}
-                el={el}
-                editTitle={editTitleTask}
-                onChangeStatus={onChangeStatus}
-                deleteTask={deleteTask}
-              />
-            ))}
-          </ul>
+        <div className={s.wrapperListTasks}>
+        <ul>
+          {filteredTasks.map((el) => (
+            <>
+            <Task
+              key={el.id}
+              el={el}
+              editTitle={editTitleTask}
+              onChangeStatus={onChangeStatus}
+              deleteTask={deleteTask}
+            />
+           
+            </>
+          ))}
+        </ul>
         </div>
+
         <div className={s.buttonFilters}>
           <Button
             size="small"
@@ -128,6 +135,7 @@ export const Todolist = React.memo((props: TodolistProps) => {
           </Button>
         </div>
       </Paper>
+      
     </div>
   );
 });

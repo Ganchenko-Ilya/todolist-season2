@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test code Components 1`] = `
+<div
+  className="editWrapper"
+>
+  <span
+    onDoubleClick={[Function]}
+  >
+    text
+  </span>
+</div>
+`;

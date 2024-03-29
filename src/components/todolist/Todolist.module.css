@@ -1,27 +1,12 @@
-.wrapperTasks > ul > li {
-  list-style-type: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 5px;
-}
-.wrapperTasks > ul {
-  margin: 0;
+ul {
+  margin: 5px 0;
   padding: 0;
-  margin-bottom: 5px;
-}
-.wrapperTasks ul li:last-child {
-  margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .baseStyleTodo {
   margin: 20px;
-}
-
-.wrapperTasks {
-  display: flex;
-  justify-content: center;
-  margin: 5px 0;
 }
 
 .headerTodo {
@@ -38,17 +23,18 @@
 }
 .paper {
   padding: 20px;
+  /* display: flex;
+  justify-content: center;
+  flex-direction: column; */
 }
 
 .paper h3 span {
   font-size: 30px;
 }
-ul li span {
-  font-size: 20px;
-  margin-right: 5px;
-}
 
-.buttonFilters {
+
+.buttonFilters, .wrapperListTasks {
   display: flex;
   justify-content: center;
 }
+

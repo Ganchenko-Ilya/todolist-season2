@@ -13,7 +13,7 @@ export type TaskTypeProps = {
   deleteTask: (id: string) => void;
 };
 export const Task = React.memo((props: TaskTypeProps) => {
-  console.log("Task");
+  console.log(`Task`);
 
   const { deleteTask, editTitle, onChangeStatus } = props;
   const { id, isDone, title } = props.el;
@@ -44,7 +44,7 @@ export const Task = React.memo((props: TaskTypeProps) => {
           checked={isDone}
         />
         
-        <DeleteIcon onClick={onCLickDeleteTaskHanlder} />
+        <DeleteIcon style={{cursor:'pointer'}} onClick={onCLickDeleteTaskHanlder} />
         
       </div>
     </li>

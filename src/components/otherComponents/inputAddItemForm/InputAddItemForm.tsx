@@ -44,7 +44,7 @@ export const InputAddItemForm = React.memo((props: InputAddTaskProps) => {
         onKeyDown={onKeyDownHandler}
         onChange={onChangeHandler}
       />
-      <AddIcon onClick={onClickHandler} />
+      <AddIcon onClick={onClickHandler} style={{cursor:'pointer'}} />
     </div>
   );
 });

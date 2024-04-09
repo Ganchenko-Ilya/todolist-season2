@@ -5,18 +5,19 @@ import s from "./Task.module.css";
 import React, { ChangeEvent, useCallback } from "react";
 
 import { TasksType } from "../../../store/tasks-reducer";
+import { TaskItemResponse, TasksStatuses } from "../../../api/todolists-api";
 
 export type TaskTypeProps = {
-  el: TasksType;
+  el: TaskItemResponse;
   editTitle: (id: string, newTitle: string) => void;
-  onChangeStatus: (id: string, status: boolean) => void;
+  onChangeStatus: (id: string, status: number) => void;
   deleteTask: (id: string) => void;
 };
 export const Task = React.memo((props: TaskTypeProps) => {
   console.log(`Task`);
 
   const { deleteTask, editTitle, onChangeStatus } = props;
-  const { id, isDone, title } = props.el;
+  const { id, status, title } = props.el;
   const editTitleHandlerTask = useCallback(
     (newTitle: string) => {
       editTitle(id, newTitle);
@@ -25,7 +26,7 @@ export const Task = React.memo((props: TaskTypeProps) => {
   );
   const onChangeStatusHandler = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
-      onChangeStatus(id, e.currentTarget.checked);
+      onChangeStatus(id, e.currentTarget.checked ? TasksStatuses.Complited:TasksStatuses.New);
     },
     [onChangeStatus]
   );
@@ -34,14 +35,14 @@ export const Task = React.memo((props: TaskTypeProps) => {
   }, [deleteTask]);
   return (
     <div className={s.wrapperTasks}>
-    <li className={isDone ? s.taskIsDone : ""}>
+    <li className={status ? s.taskIsDone : ""}>
       <EditableSpan title={title} editTitle={editTitleHandlerTask} />
       <div className={s.wrapperCheckbox}>
         <Checkbox
           sx={{ width: "0px", height: "18px" }}
           onChange={onChangeStatusHandler}
           size="small"
-          checked={isDone}
+          checked={!!status}
         />
         
         <DeleteIcon style={{cursor:'pointer'}} onClick={onCLickDeleteTaskHanlder} />

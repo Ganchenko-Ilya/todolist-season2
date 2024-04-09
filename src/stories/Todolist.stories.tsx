@@ -3,14 +3,17 @@ import { fn } from "@storybook/test";
 
 import { Todolist } from "../components/todolist/Todolist";
 import { initialTodolistsState } from "../store/todolists-reducer";
-import { TodolistWithProvider } from "../testComponents/helpFuction/providerDecorator";
+import { Provider } from "react-redux";
+import { store } from "../store/store";
+
 
 const meta: Meta<typeof Todolist> = {
   title: "Todolist",
-  component: TodolistWithProvider,
+  component: Todolist,
   parameters: {
     layout: "centered",
   },
+  decorators: Story => <Provider store={store}>{Story()}</Provider>,
 
   tags: ["autodocs"],
   args: {

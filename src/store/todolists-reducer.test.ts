@@ -1,13 +1,14 @@
 import { v1 } from "uuid";
 import {
-  TodolistsType,
+  
   addTodoAC,
   deleteTodoAC,
   editTitleTodoAC,
   todolistReducer,
 } from "./todolists-reducer";
+import { TodolistsResponse } from "../api/todolists-api";
 
-let todolist: TodolistsType[] = [];
+let todolist: TodolistsResponse[] = [];
 let todolist1Id = "";
 let todolist2Id = "";
 
@@ -16,8 +17,8 @@ beforeEach(() => {
   todolist2Id = v1();
 
   todolist = [
-    { id: todolist1Id, title: "What to learn" },
-    { id: todolist2Id, title: "What to buy" },
+    { id: todolist1Id, title: "What to learn",addedDate:'',order:0  },
+    { id: todolist2Id, title: "What to buy",addedDate:'',order:0  },
   ];
 });
 

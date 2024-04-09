@@ -1,22 +1,22 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { fn } from "@storybook/test";
+
 
 
 import { Provider } from "react-redux";
 import { store } from "../store/store";
 import App from "../components/app/App";
-import { AppWithProvider } from "../testComponents/helpFuction/providerDecorator";
+
 
 const meta:Meta<typeof App> = {
   title: "App",
-  component: AppWithProvider,
+  component: App,
   parameters: {
-    layout: "centered",
+    // layout: "centered",
   },
   
   tags: ["autodocs"],
 
-  
+  decorators: Story => <Provider store={store}>{Story()}</Provider>
   
 } 
 

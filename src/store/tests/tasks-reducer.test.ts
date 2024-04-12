@@ -1,16 +1,20 @@
 import { v1 } from "uuid";
 
-import { TaskObjType, addTaskAC, changeTaskAC, changeTaskTC, deleteTaskAC, tasksReducer } from "./tasks-reducer";
-import { addTodoAC, deleteTodoAC } from "./todolists-reducer";
-import { TasksStatuses, TodoTaskPriority } from "../api/todolists-api";
+import { addTaskAC, changeStatusLoadTaskAC, changeTaskAC, deleteTaskAC, tasksReducer } from "../tasks-reducer";
+import { addTodoAC, deleteTodoAC, setTodoAC } from "../todolists-reducer";
+import { ChangeTodolistsResponse, TaskObjType, TasksStatuses, TodoTaskPriority, TodolistsResponse } from "../../api/todolists-api";
 
 let todolist1Id = "";
 let todolist2Id = "";
 let tasks: TaskObjType = {};
-
+let todolist:ChangeTodolistsResponse[] = []
 beforeEach(() => {
   todolist1Id = v1();
   todolist2Id = v1();
+  todolist = [
+    { id: todolist1Id, title: "What to learn", addedDate: "", order: 0, statusTodo: "idle" },
+    { id: todolist2Id, title: "What to buy", addedDate: "", order: 0, statusTodo: "idle" },
+  ];
   tasks = {
     [todolist1Id]: [
       {
@@ -24,6 +28,7 @@ beforeEach(() => {
         description: null,
         order: 0,
         startDate: "",
+        statusLoad: "idle",
       },
       {
         id: v1(),
@@ -36,6 +41,7 @@ beforeEach(() => {
         description: null,
         order: 0,
         startDate: "",
+        statusLoad: "idle",
       },
     ],
     [todolist2Id]: [
@@ -50,6 +56,7 @@ beforeEach(() => {
         description: null,
         order: 0,
         startDate: "",
+        statusLoad: "idle",
       },
       {
         id: v1(),
@@ -62,25 +69,29 @@ beforeEach(() => {
         description: null,
         order: 0,
         startDate: "",
+        statusLoad: "idle",
       },
     ],
   };
 });
 
 test("Add Task of todolist by Id", () => {
-  const newState = tasksReducer(tasks, addTaskAC(todolist2Id,{
-    id: v1(),
-    title: "Snake",
-    status: TasksStatuses.New,
-    todoListId: "",
-    priority: TodoTaskPriority.Low,
-    addedDate: "",
-    deadline: "",
-    description: null,
-    order: 0,
-    startDate: "",
-  }, ));
-  
+  const newState = tasksReducer(
+    tasks,
+    addTaskAC(todolist2Id, {
+      id: v1(),
+      title: "Snake",
+      status: TasksStatuses.New,
+      todoListId: "",
+      priority: TodoTaskPriority.Low,
+      addedDate: "",
+      deadline: "",
+      description: null,
+      order: 0,
+      startDate: "",
+    })
+  );
+
   expect(newState[todolist2Id].length).toBe(3);
 
   expect(newState[todolist2Id][2].status).toBe(TasksStatuses.New);
@@ -94,7 +105,7 @@ test("Change status task by Id", () => {
   const taskId = tasks[todolist2Id][1].id;
   const newState = tasksReducer(
     tasks,
-    changeTaskAC(todolist2Id, taskId, {status:TasksStatuses.Complited})
+    changeTaskAC(todolist2Id, taskId, { status: TasksStatuses.Complited })
   );
   expect(Object.keys(newState).length).toBe(2);
   expect(newState[todolist2Id].length).toBe(2);
@@ -136,3 +147,24 @@ test("Delete key for Tasks after delete todolis", () => {
   expect(Object.keys(newState)[0]).toBe(todolist2Id);
   expect(newState[todolist1Id]).toBeUndefined();
 });
+
+test('Add empty array for keys of tasks',() => {
+
+  const newState = tasksReducer({},setTodoAC(todolist));
+  const result = Object.keys(newState)
+  expect(newState[todolist[0].id]).toBeDefined()
+  expect(newState[todolist[0].id].length).toBe(0)
+  expect(result.length).toBe(2);
+  expect(result[0]).toBe(todolist1Id);
+
+
+})
+
+test('Change status for loading Task ',() => {
+  const newState = tasksReducer(tasks,changeStatusLoadTaskAC(todolist1Id,tasks[todolist1Id][0].id,'loading'));
+
+  expect(newState[todolist1Id][0].statusLoad).toBe('loading')
+  expect(newState[todolist2Id][0].statusLoad).toBe('idle')
+
+})
+

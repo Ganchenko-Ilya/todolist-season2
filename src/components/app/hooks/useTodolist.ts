@@ -9,11 +9,14 @@ import {
 } from "../../../store/todolists-reducer";
 
 import { RootReducerType, useAppDispatch } from "../../../store/store";
-import { TodolistsResponse } from "../../../api/todolists-api";
+import { ChangeTodolistsResponse } from "../../../api/todolists-api";
 
 export const useTodolist = () => {
   const dispatch = useAppDispatch();
-  const todolists = useSelector<RootReducerType, TodolistsResponse[]>((state) => state.todolists);
+  const todolists = useSelector<RootReducerType, ChangeTodolistsResponse[]>(
+    (state) => state.todolists
+  );
+  const statusApp = useSelector<RootReducerType, string>((state) => state.app.status);
   useEffect(() => {
     dispatch(setTodoTC());
   }, []);
@@ -37,5 +40,5 @@ export const useTodolist = () => {
     [dispatch]
   );
 
-  return { addTodo, todolists, deleteTodo, editTitleTodo };
+  return { statusApp, addTodo, todolists, deleteTodo, editTitleTodo };
 };

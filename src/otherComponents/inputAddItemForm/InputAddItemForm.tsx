@@ -3,13 +3,15 @@ import s from "./InputAddItemForm.module.css";
 
 import AddIcon from "@mui/icons-material/Add";
 import { TextField } from "@mui/material";
+import { StatusType } from "../../store/app-reducer";
 type InputAddTaskProps = {
   addItem: (value: string) => void;
   helpText: string;
+  statusTodo?: StatusType;
 };
 export const InputAddItemForm = React.memo((props: InputAddTaskProps) => {
   console.log("InputAddItemForm");
-  const { addItem, helpText } = props;
+  const { addItem, helpText, statusTodo } = props;
   const [value, setValue] = useState<string>("");
   const [error, setError] = useState<string>("");
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -33,6 +35,7 @@ export const InputAddItemForm = React.memo((props: InputAddTaskProps) => {
     },
     [onClickOnKeyDownHandler]
   );
+
   return (
     <div className={s.wrapper}>
       <TextField
@@ -43,8 +46,16 @@ export const InputAddItemForm = React.memo((props: InputAddTaskProps) => {
         variant="outlined"
         onKeyDown={onKeyDownHandler}
         onChange={onChangeHandler}
+        disabled={statusTodo === "loading"}
       />
-      <AddIcon onClick={onClickHandler} style={{cursor:'pointer'}} />
+      <AddIcon
+        onClick={onClickHandler}
+        style={
+          statusTodo === "loading"
+            ? { pointerEvents: "none", cursor: "pointer" }
+            : { cursor: "pointer" }
+        }
+      />
     </div>
   );
 });

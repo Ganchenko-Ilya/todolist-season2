@@ -11,22 +11,20 @@
   align-items: center;
 }
 
-/* .wrapperTasks {
-  display: flex;
-  justify-content: center;
-  margin: 5px 0;
-} */
-.wrapperTasks  li {
+.wrapperTasks li {
   list-style-type: none;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   margin-bottom: 5px;
 }
-.wrapperTasks  li:last-child {
+.wrapperTasks li:last-child {
   margin: 0;
 }
 li span {
   font-size: 20px;
   margin-right: 5px;
+}
+.deleteIcon {
+  cursor: pointer;
 }

@@ -7,6 +7,7 @@ ul {
 
 .baseStyleTodo {
   margin: 20px;
+  position: relative;
 }
 
 .headerTodo {
@@ -23,18 +24,14 @@ ul {
 }
 .paper {
   padding: 20px;
-  /* display: flex;
-  justify-content: center;
-  flex-direction: column; */
 }
 
 .paper h3 span {
   font-size: 30px;
 }
 
-
-.buttonFilters, .wrapperListTasks {
+.buttonFilters,
+.wrapperListTasks {
   display: flex;
   justify-content: center;
 }
-

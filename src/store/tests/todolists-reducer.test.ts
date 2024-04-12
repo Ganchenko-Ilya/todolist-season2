@@ -1,14 +1,15 @@
 import { v1 } from "uuid";
 import {
-  
   addTodoAC,
+  changeStatusTodoAC,
   deleteTodoAC,
   editTitleTodoAC,
+  setTodoAC,
   todolistReducer,
-} from "./todolists-reducer";
-import { TodolistsResponse } from "../api/todolists-api";
+} from "../todolists-reducer";
+import { ChangeTodolistsResponse } from "../../api/todolists-api";
 
-let todolist: TodolistsResponse[] = [];
+let todolist: ChangeTodolistsResponse[] = [];
 let todolist1Id = "";
 let todolist2Id = "";
 
@@ -17,8 +18,8 @@ beforeEach(() => {
   todolist2Id = v1();
 
   todolist = [
-    { id: todolist1Id, title: "What to learn",addedDate:'',order:0  },
-    { id: todolist2Id, title: "What to buy",addedDate:'',order:0  },
+    { id: todolist1Id, title: "What to learn", addedDate: "", order: 0, statusTodo: "idle" },
+    { id: todolist2Id, title: "What to buy", addedDate: "", order: 0, statusTodo: "idle" },
   ];
 });
 
@@ -45,5 +46,20 @@ test("Change title of todolist by id", () => {
   expect(newState[1].title).toBe("Top cinema");
   expect(newState[1].id).toBe(todolist2Id);
   expect(newState[0].title).toBe("What to learn");
+  expect(newState.length).toBe(2);
+});
+
+test("Change status Todo", () => {
+  const newState = todolistReducer(todolist, changeStatusTodoAC(todolist1Id, "loading"));
+
+  expect(newState[0].statusTodo).toBe("loading");
+  expect(newState[1].statusTodo).toBe("idle");
+});
+
+test("Set Todo in State", () => {
+  const newState = todolistReducer([], setTodoAC(todolist));
+
+  expect(newState[0].title).toBe("What to learn");
+  expect(newState[1].statusTodo).toBe("idle");
   expect(newState.length).toBe(2);
 });

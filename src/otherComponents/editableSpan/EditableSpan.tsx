@@ -1,8 +1,11 @@
-import React, { ChangeEvent, KeyboardEvent, useCallback, useEffect, useRef, useState } from "react";
+import React, { ChangeEvent, KeyboardEvent, useCallback, useState } from "react";
 import s from "./EditableSpan.module.css";
 import { TextField } from "@mui/material";
+import { StatusType } from "../../store/app-reducer";
 type EditableSpanPropsType = {
   title: string;
+  statusTodo: StatusType;
+  statusLoad?: StatusType;
   editTitle: (newTitle: string) => void;
 };
 export const EditableSpan = React.memo((props: EditableSpanPropsType) => {
@@ -10,7 +13,7 @@ export const EditableSpan = React.memo((props: EditableSpanPropsType) => {
 
   const [editMode, setEditMode] = useState(false);
 
-  const { title, editTitle } = props;
+  const { title, editTitle, statusTodo, statusLoad } = props;
 
   const [value, setValue] = useState("");
   const [error, setError] = useState<string>("");
@@ -52,7 +55,7 @@ export const EditableSpan = React.memo((props: EditableSpanPropsType) => {
 
   return (
     <div className={s.editWrapper}>
-      {editMode ? (
+      {editMode && statusTodo !== "loading" && statusLoad !== "loading" ? (
         <TextField
           className={s.textField}
           error={!!error}

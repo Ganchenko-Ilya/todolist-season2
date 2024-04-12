@@ -4,8 +4,7 @@ import { RootReducerType, useAppDispatch } from "../../store/store";
 import { useCallback, useEffect, useState } from "react";
 
 import { addTaskTC, changeTaskTC, deleteTaskTC, setTaskTC } from "../../store/tasks-reducer";
-
-import { TaskItemResponse } from "../../api/todolists-api";
+import { ChangeTaskResponseType } from "../../api/todolists-api";
 
 export type FilterType = "All" | "Active" | "Complited";
 
@@ -14,7 +13,7 @@ export const useTask = (
   deleteTodo: (tId: string) => void,
   editTitleTodo: (tId: string, newTitle: string) => void
 ) => {
-  const tasks = useSelector<RootReducerType, TaskItemResponse[]>((state) => state.tasks[tId]);
+  const tasks = useSelector<RootReducerType, ChangeTaskResponseType[]>((state) => state.tasks[tId]);
 
   const dispatch = useAppDispatch();
 

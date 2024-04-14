@@ -1,25 +1,16 @@
-import s from "./App.module.css";
-
-import { Todolist } from "../todolist/Todolist";
-import { InputAddItemForm } from "../../otherComponents/inputAddItemForm/InputAddItemForm";
-import {
-  AppBar,
-  Button,
-  CircularProgress,
-  Container,
-  IconButton,
-  LinearProgress,
-  Toolbar,
-  Typography,
-} from "@mui/material";
+import { AppBar, Button, IconButton, LinearProgress, Toolbar, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useTodolist } from "./hooks/useTodolist";
+
 import { SnakeBarError } from "../../otherComponents/snakeBarError/SnakeBarError";
+import { Route, Routes } from "react-router-dom";
+import { TodolistsList } from "../features/todolistsList/TodolistsList";
+import { useApp } from "./hooks/useApp";
+import { Login } from "../features/login/Login";
 
 const App = () => {
   console.log("App");
 
-  const { statusApp, addTodo, todolists, deleteTodo, editTitleTodo } = useTodolist();
+  const { statusApp } = useApp();
 
   return (
     <div>
@@ -36,24 +27,11 @@ const App = () => {
         <SnakeBarError />
         {statusApp === "loading" && <LinearProgress />}
       </AppBar>
-      <Container maxWidth="lg">
-        <div className={s.inputTodo}>
-          <InputAddItemForm addItem={addTodo} helpText="Add List" />
-        </div>
 
-        <div className={s.todolistsWrapper}>
-          {todolists.map((el) => (
-            <Todolist
-              key={el.id}
-              tId={el.id}
-              statusTodo={el.statusTodo}
-              titleTodo={el.title}
-              deleteTodo={deleteTodo}
-              editTitleTodo={editTitleTodo}
-            />
-          ))}
-        </div>
-      </Container>
+      <Routes>
+        <Route path="/" element={<TodolistsList />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
     </div>
   );
 };

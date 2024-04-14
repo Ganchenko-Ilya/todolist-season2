@@ -1,18 +1,1 @@
-.todolistsWrapper {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-.app {
-  max-width: 1000px;
-  margin: 0 auto;
-}
-.inputTodo {
-  display: inline-block;
-  margin-top: 20px;
-}
-.circularProgress {
-  position: absolute;
-  top: 47vh;
-  left: 47vw;
-}
+

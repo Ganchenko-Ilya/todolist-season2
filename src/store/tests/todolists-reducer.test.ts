@@ -7,7 +7,7 @@ import {
   setTodoAC,
   todolistReducer,
 } from "../todolists-reducer";
-import { ChangeTodolistsResponse } from "../../api/todolists-api";
+import { ChangeTodolistsResponse } from "../../api/api";
 
 let todolist: ChangeTodolistsResponse[] = [];
 let todolist1Id = "";

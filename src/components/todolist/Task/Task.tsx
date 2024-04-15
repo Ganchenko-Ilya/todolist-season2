@@ -4,7 +4,7 @@ import { EditableSpan } from "../../../otherComponents/editableSpan/EditableSpan
 import s from "./Task.module.css";
 import React, { ChangeEvent, useCallback } from "react";
 
-import { ChangeTaskResponseType, TasksStatuses } from "../../../api/todolists-api";
+import { ChangeTaskResponseType, TasksStatuses } from "../../../api/api";
 import { StatusType } from "../../../store/app-reducer";
 
 export const Task = React.memo((props: TaskTypeProps) => {
@@ -21,7 +21,7 @@ export const Task = React.memo((props: TaskTypeProps) => {
   );
   const onChangeStatusHandler = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
-      onChangeStatus(id, e.currentTarget.checked ? TasksStatuses.Complited : TasksStatuses.New);
+      onChangeStatus(id, e.currentTarget.checked ? TasksStatuses.Completed : TasksStatuses.New);
     },
     [onChangeStatus]
   );

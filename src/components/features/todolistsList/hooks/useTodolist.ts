@@ -9,7 +9,7 @@ import {
 } from "../../../../store/todolists-reducer";
 
 import { RootReducerType, useAppDispatch } from "../../../../store/store";
-import { ChangeTodolistsResponse } from "../../../../api/todolists-api";
+import { ChangeTodolistsResponse } from "../../../../api/api";
 
 export const useTodolist = () => {
   const dispatch = useAppDispatch();

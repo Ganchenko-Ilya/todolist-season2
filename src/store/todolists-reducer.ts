@@ -1,4 +1,4 @@
-import { ChangeTodolistsResponse, TodolistsResponse, todolistsApi } from "../api/todolists-api";
+import { ChangeTodolistsResponse, TodolistsResponse, todolistsApi } from "../api/api";
 
 import { ThunkActionAppType } from "./store";
 

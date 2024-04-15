@@ -1,21 +1,19 @@
 import { AxiosResponse, isAxiosError } from "axios";
-import { TodolistTaskResultResponse } from "../../api/todolists-api";
+import { ResultResponse } from "../../api/api";
 import { changeAppStatusAC, setErrorAC } from "../app-reducer";
 import { ThunkAppDispatch } from "../store";
 
 export const errorHelpFunc = <T = {}>(
   callBack: () => void,
-  res: AxiosResponse<TodolistTaskResultResponse<T>>,
+  res: AxiosResponse<ResultResponse<T>>,
   dispatch: ThunkAppDispatch
 ) => {
+  
   if (res.data.resultCode === 0) {
     callBack();
     dispatch(changeAppStatusAC("succeeded"));
-  } else if (res.data.messages) {
+  } else if (res.data.messages && res.data.resultCode === 1) {
     dispatch(setErrorAC(res.data.messages[0]));
-    dispatch(changeAppStatusAC("failed"));
-  } else {
-    dispatch(setErrorAC("some message"));
     dispatch(changeAppStatusAC("failed"));
   }
 };
@@ -23,8 +21,7 @@ export const errorHelpFunc = <T = {}>(
 export const errorCatchHelpFunc = (dispatch: ThunkAppDispatch, error: unknown) => {
   if (isAxiosError(error)) {
     dispatch(setErrorAC(error.message));
-  }
-  else{
+  } else {
     dispatch(setErrorAC("Some Error"));
   }
 

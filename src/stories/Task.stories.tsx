@@ -3,7 +3,7 @@ import { fn } from "@storybook/test";
 
 import { Task } from "../components/todolist/Task/Task";
 
-import { TasksStatuses } from "../api/todolists-api";
+import { TasksStatuses } from "../api/api";
 import { Provider } from "react-redux";
 import { store } from "../store/store";
 const meta: Meta<typeof Task> = {

@@ -1,1 +1,9 @@
-
+.linearProgress {
+  position: absolute;
+}
+.linearProgressWrapper {
+  position: relative;
+  margin-bottom: 10px;
+  width: 100%;
+  height: 3px;
+}

@@ -12,40 +12,51 @@ export const todolistsApi = {
     return instance.get<TodolistsResponse[]>(`todo-lists`);
   },
   addTodolist(title: string) {
-    return instance.post<TodolistTaskResultResponse<{ item: TodolistsResponse }>>(`todo-lists`, {
+    return instance.post<ResultResponse<{ item: TodolistsResponse }>>(`todo-lists`, {
       title,
     });
   },
   deleteTodolist(id: string) {
-    return instance.delete<TodolistTaskResultResponse>(`todo-lists/${id}`);
+    return instance.delete<ResultResponse>(`todo-lists/${id}`);
   },
   changeTitleTodolist(id: string, title: string) {
-    return instance.put<TodolistTaskResultResponse>(`todo-lists/${id}`, { title });
+    return instance.put<ResultResponse>(`todo-lists/${id}`, { title });
   },
   getTasks(id: string) {
     return instance.get<TaskResponse>(`todo-lists/${id}/tasks`);
   },
   addTask(tId: string, title: string) {
-    return instance.post<TodolistTaskResultResponse<{ item: TaskItemResponse }>>(
-      `todo-lists/${tId}/tasks`,
-      { title }
-    );
+    return instance.post<ResultResponse<{ item: TaskItemResponse }>>(`todo-lists/${tId}/tasks`, {
+      title,
+    });
   },
   changeTask(tId: string, id: string, model: ModelChangeType) {
-    return instance.put<TodolistTaskResultResponse<{ item: TaskItemResponse }>>(
+    return instance.put<ResultResponse<{ item: TaskItemResponse }>>(
       `todo-lists/${tId}/tasks/${id}`,
       model
     );
   },
   deleteTask(tId: string, id: string) {
-    return instance.delete<TodolistTaskResultResponse>(`todo-lists/${tId}/tasks/${id}`);
+    return instance.delete<ResultResponse>(`todo-lists/${tId}/tasks/${id}`);
+  },
+};
+
+export const authApi = {
+  logIn(userData: useDataRequestType) {
+    return instance.post<ResultResponse<{ userId: number }>>("auth/login", userData);
+  },
+  logout() {
+    return instance.delete<ResultResponse>("auth/login");
+  },
+  captcha() {
+    return instance.get<{ url: string }>("security/get-captcha-url");
   },
 };
 
 export enum TasksStatuses {
   New = 0,
   InProgress = 1,
-  Complited = 2,
+  Completed = 2,
   Draft = 3,
 }
 export enum TodoTaskPriority {
@@ -55,14 +66,15 @@ export enum TodoTaskPriority {
   Urgently = 3,
   Later = 4,
 }
-export type TodolistsResponse = {
-  id: string;
-  title: string;
-  addedDate: string;
-  order: number;
-};
+
 export type AddTodoType = {
   statusTodo: StatusType;
+};
+export type useDataRequestType = {
+  email: string;
+  password: string;
+  rememberMe: boolean;
+  captcha: string;
 };
 export type ChangeTodolistsResponse = TodolistsResponse & AddTodoType;
 export type AddItemTaskType = { statusLoad: StatusType };
@@ -82,12 +94,19 @@ export type TaskItemResponse = {
   deadline: string;
   addedDate: string;
 };
+
+export type TodolistsResponse = {
+  id: string;
+  title: string;
+  addedDate: string;
+  order: number;
+};
 export type TaskResponse = {
   items: TaskItemResponse[];
   totalCount: number;
   error: null | string;
 };
-export type TodolistTaskResultResponse<T = {}> = {
+export type ResultResponse<T = {}> = {
   data: T;
   messages: string[];
   fieldsErrors: string[];

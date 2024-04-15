@@ -5,7 +5,7 @@ import {
   TasksStatuses,
   TodoTaskPriority,
   todolistsApi,
-} from "../api/todolists-api";
+} from "../api/api";
 import { ThunkActionAppType } from "./store";
 import { StatusType, changeAppStatusAC } from "./app-reducer";
 

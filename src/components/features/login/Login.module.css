@@ -1,0 +1,29 @@
+.error {
+  color: red;
+  position: absolute;
+  bottom: -10px;
+}
+.textFieldWrapper {
+  position: relative;
+  margin-bottom: 10px;
+}
+.visibleIcon {
+  position: absolute;
+  right: 0;
+  top: 20%;
+  cursor: pointer;
+}
+.captcha {
+  width:200px;
+  height: 70px;
+  border: 2px solid #1976d2;
+  border-radius: 3px;
+}
+
+.captchaWrapper{
+  margin-top: 20px;
+}
+.captchaWrapper p {
+  margin:0;
+  color:brown;
+}

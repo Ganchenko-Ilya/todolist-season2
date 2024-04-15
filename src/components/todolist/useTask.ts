@@ -4,7 +4,7 @@ import { RootReducerType, useAppDispatch } from "../../store/store";
 import { useCallback, useEffect, useState } from "react";
 
 import { addTaskTC, changeTaskTC, deleteTaskTC, setTaskTC } from "../../store/tasks-reducer";
-import { ChangeTaskResponseType } from "../../api/todolists-api";
+import { ChangeTaskResponseType } from "../../api/api";
 
 export type FilterType = "All" | "Active" | "Complited";
 

@@ -1,31 +1,34 @@
-import { useCallback, useEffect } from "react";
-import { useSelector } from "react-redux";
-
+import { useCallback, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { RootReducerType, useAppDispatch } from '../../../../store/store';
+import { ChangeTodolistsResponse } from '../../../../api/api';
 import {
   addTodoTC,
   deleteTodoTC,
   editTitleTodoTC,
   setTodoTC,
-} from "../../../../store/todolists-reducer";
-
-import { RootReducerType, useAppDispatch } from "../../../../store/store";
-import { ChangeTodolistsResponse } from "../../../../api/api";
+} from '../../../../store/todolists-reducer';
 
 export const useTodolist = () => {
   const dispatch = useAppDispatch();
+  const isLogin = useSelector<RootReducerType, boolean>((state) => state.auth.isLogIn);
   const todolists = useSelector<RootReducerType, ChangeTodolistsResponse[]>(
     (state) => state.todolists
   );
 
   useEffect(() => {
-    dispatch(setTodoTC());
+    if (isLogin) {
+      dispatch(setTodoTC());
+    }
   }, []);
+
   const deleteTodo = useCallback(
     (tId: string) => {
       dispatch(deleteTodoTC(tId));
     },
     [dispatch]
   );
+
   const addTodo = useCallback(
     (title: string) => {
       dispatch(addTodoTC(title));
@@ -40,5 +43,5 @@ export const useTodolist = () => {
     [dispatch]
   );
 
-  return { addTodo, todolists, deleteTodo, editTitleTodo };
+  return { addTodo, todolists, deleteTodo, editTitleTodo, isLogin };
 };

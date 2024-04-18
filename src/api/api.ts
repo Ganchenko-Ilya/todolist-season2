@@ -1,10 +1,10 @@
-import axios from "axios";
-import { ModelChangeType } from "../store/tasks-reducer";
-import { StatusType } from "../store/app-reducer";
+import axios from 'axios';
+import { ModelChangeType } from '../store/tasks-reducer';
+import { StatusType } from '../store/app-reducer';
 
 const instance = axios.create({
   withCredentials: true,
-  baseURL: "https://social-network.samuraijs.com/api/1.1/",
+  baseURL: 'https://social-network.samuraijs.com/api/1.1/',
 });
 
 export const todolistsApi = {
@@ -43,14 +43,17 @@ export const todolistsApi = {
 
 export const authApi = {
   logIn(userData: useDataRequestType) {
-    return instance.post<ResultResponse<{ userId: number }>>("auth/login", userData);
+    return instance.post<ResultResponse<{ userId: number }>>('auth/login', userData);
   },
   logout() {
-    return instance.delete<ResultResponse>("auth/login");
+    return instance.delete<ResultResponse>('auth/login');
   },
   captcha() {
-    return instance.get<{ url: string }>("security/get-captcha-url");
+    return instance.get<{ url: string }>('security/get-captcha-url');
   },
+  authMe(){
+    return instance.get<ResultResponse<AutMeResponse>>('auth/me')
+  }
 };
 
 export enum TasksStatuses {
@@ -66,7 +69,11 @@ export enum TodoTaskPriority {
   Urgently = 3,
   Later = 4,
 }
-
+export type AutMeResponse = {
+  id:string 
+  email:string 
+  login:string
+}
 export type AddTodoType = {
   statusTodo: StatusType;
 };

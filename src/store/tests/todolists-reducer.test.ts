@@ -6,8 +6,8 @@ import {
   editTitleTodoAC,
   setTodoAC,
   todolistReducer,
-} from "../todolists-reducer";
-import { ChangeTodolistsResponse } from "../../api/api";
+} from "store/todolists-reducer";
+import { ChangeTodolistsResponse } from "api/api";
 
 let todolist: ChangeTodolistsResponse[] = [];
 let todolist1Id = "";
@@ -18,8 +18,20 @@ beforeEach(() => {
   todolist2Id = v1();
 
   todolist = [
-    { id: todolist1Id, title: "What to learn", addedDate: "", order: 0, statusTodo: "idle" },
-    { id: todolist2Id, title: "What to buy", addedDate: "", order: 0, statusTodo: "idle" },
+    {
+      id: todolist1Id,
+      title: "What to learn",
+      addedDate: "",
+      order: 0,
+      statusTodo: "idle",
+    },
+    {
+      id: todolist2Id,
+      title: "What to buy",
+      addedDate: "",
+      order: 0,
+      statusTodo: "idle",
+    },
   ];
 });
 
@@ -34,7 +46,10 @@ test("Delete todolist by Id", () => {
 
 test("Add todolist", () => {
   const todolist3Id = v1();
-  const newState = todolistReducer(todolist, addTodoAC(todolist3Id, "Top books"));
+  const newState = todolistReducer(
+    todolist,
+    addTodoAC(todolist3Id, "Top books"),
+  );
   expect(newState.length).toBe(3);
   expect(newState[0].title).toBe("Top books");
   expect(newState[2].id).toBe(todolist2Id);
@@ -42,7 +57,10 @@ test("Add todolist", () => {
   expect(newState[0].id).toBe(todolist3Id);
 });
 test("Change title of todolist by id", () => {
-  const newState = todolistReducer(todolist, editTitleTodoAC(todolist2Id, "Top cinema"));
+  const newState = todolistReducer(
+    todolist,
+    editTitleTodoAC(todolist2Id, "Top cinema"),
+  );
   expect(newState[1].title).toBe("Top cinema");
   expect(newState[1].id).toBe(todolist2Id);
   expect(newState[0].title).toBe("What to learn");
@@ -50,7 +68,10 @@ test("Change title of todolist by id", () => {
 });
 
 test("Change status Todo", () => {
-  const newState = todolistReducer(todolist, changeStatusTodoAC(todolist1Id, "loading"));
+  const newState = todolistReducer(
+    todolist,
+    changeStatusTodoAC(todolist1Id, "loading"),
+  );
 
   expect(newState[0].statusTodo).toBe("loading");
   expect(newState[1].statusTodo).toBe("idle");

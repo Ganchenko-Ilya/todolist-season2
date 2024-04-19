@@ -11,19 +11,32 @@ const rootReducer = combineReducers({
   tasks: tasksReducer,
   todolists: todolistReducer,
   app: appReducer,
-  auth:authReducer
+  auth: authReducer,
 });
 
 export const store = legacy_createStore(
   rootReducer,
   {},
-  composeWithDevTools(applyMiddleware(thunk))
+  composeWithDevTools(applyMiddleware(thunk)),
 );
-type AllAction = ActionsTodolistsType | ActionsTasksType | ActionsAppType | ActionAuthType;
-export type ThunkAppDispatch = ThunkDispatch<RootReducerType, unknown, AllAction>
+type AllAction =
+  | ActionsTodolistsType
+  | ActionsTasksType
+  | ActionsAppType
+  | ActionAuthType;
+export type ThunkAppDispatch = ThunkDispatch<
+  RootReducerType,
+  unknown,
+  AllAction
+>;
 export const useAppDispatch = useDispatch<ThunkAppDispatch>;
 export type RootReducerType = ReturnType<typeof rootReducer>;
-export type ThunkActionAppType = ThunkAction<any, RootReducerType, unknown, AllAction>;
+export type ThunkActionAppType = ThunkAction<
+  any,
+  RootReducerType,
+  unknown,
+  AllAction
+>;
 
 //@ts-ignore
 window.store = store;

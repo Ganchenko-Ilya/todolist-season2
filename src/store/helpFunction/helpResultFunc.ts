@@ -7,7 +7,7 @@ export const helpResultFunc = <T = {}>(
   callBack: () => void,
   res: AxiosResponse<ResultResponse<T>>,
   dispatch: ThunkAppDispatch,
-  succeededInfo: null | string = null
+  succeededInfo: null | string = null,
 ) => {
   if (res.data.resultCode === 0) {
     callBack();
@@ -27,6 +27,5 @@ export const errorCatchHelpFunc = (dispatch: ThunkAppDispatch, error: unknown) =
   } else {
     dispatch(setInfoAC({ errorInfo: "Some Error" }));
   }
-
   dispatch(changeAppStatusAC("failed"));
 };

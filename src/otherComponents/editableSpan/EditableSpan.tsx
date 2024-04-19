@@ -1,7 +1,12 @@
-import React, { ChangeEvent, KeyboardEvent, useCallback, useState } from 'react';
-import s from './EditableSpan.module.css';
-import { TextField } from '@mui/material';
-import { StatusType } from '../../store/app-reducer';
+import React, {
+  ChangeEvent,
+  KeyboardEvent,
+  useCallback,
+  useState,
+} from "react";
+import s from "./EditableSpan.module.css";
+import { TextField } from "@mui/material";
+import { StatusType } from "store/app-reducer";
 
 type EditableSpanPropsType = {
   title: string;
@@ -11,11 +16,11 @@ type EditableSpanPropsType = {
 };
 
 export const EditableSpan = React.memo((props: EditableSpanPropsType) => {
-  console.log('EditableSpan');
+  console.log("EditableSpan");
   const [editMode, setEditMode] = useState(false);
   const { title, editTitle, statusTodo, statusLoad } = props;
-  const [value, setValue] = useState('');
-  const [error, setError] = useState<string>('');
+  const [value, setValue] = useState("");
+  const [error, setError] = useState<string>("");
   const valueTrim = value.trim();
 
   const onDoubleClickHanlder = () => {
@@ -30,44 +35,44 @@ export const EditableSpan = React.memo((props: EditableSpanPropsType) => {
       }
       setEditMode(false);
     } else {
-      setError('Incorrect input');
+      setError("Incorrect input");
     }
   }, [valueTrim, title]);
 
   const onChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.currentTarget.value);
-    setError('');
+    setError("");
   }, []);
 
   const onKeyDownHanlder = useCallback(
     (e: KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === 'Enter') {
+      if (e.key === "Enter") {
         if (valueTrim) {
           if (valueTrim !== title) {
             editTitle(value);
           }
           setEditMode(false);
         } else {
-          setError('Incorrect input');
+          setError("Incorrect input");
         }
       }
     },
-    [valueTrim, title]
+    [valueTrim, title],
   );
 
   return (
     <div className={s.editWrapper}>
-      {editMode && statusTodo !== 'loading' && statusLoad !== 'loading' ? (
+      {editMode && statusTodo !== "loading" && statusLoad !== "loading" ? (
         <TextField
           className={s.textField}
           error={!!error}
-          variant='filled'
+          variant="filled"
           autoFocus
           onBlur={onBlurHanlder}
           onKeyDown={onKeyDownHanlder}
           onChange={onChangeHandler}
           value={value}
-          placeholder={error ? error : ''}
+          placeholder={error ? error : ""}
         />
       ) : (
         <span onDoubleClick={onDoubleClickHanlder}>{title}</span>

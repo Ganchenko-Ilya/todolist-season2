@@ -1,26 +1,34 @@
-import { useSelector } from 'react-redux';
-import { RootReducerType, useAppDispatch } from '../../../store/store';
-import { useCallback, useEffect, useState } from 'react';
-import { addTaskTC, changeTaskTC, deleteTaskTC, setTaskTC } from '../../../store/tasks-reducer';
-import { ChangeTaskResponseType } from '../../../api/api';
+import { useSelector } from "react-redux";
+import { RootReducerType, useAppDispatch } from "../../../store/store";
+import { useCallback, useEffect, useState } from "react";
+import {
+  addTaskTC,
+  changeTaskTC,
+  deleteTaskTC,
+  setTaskTC,
+} from "../../../store/tasks-reducer";
+import { ChangeTaskResponseType } from "../../../api/api";
 
-export type FilterType = 'All' | 'Active' | 'Complited';
+export type FilterType = "All" | "Active" | "Complited";
 
 export const useTask = (
   tId: string,
   deleteTodo: (tId: string) => void,
-  editTitleTodo: (tId: string, newTitle: string) => void
+  editTitleTodo: (tId: string, newTitle: string) => void,
 ) => {
-  const tasks = useSelector<RootReducerType, ChangeTaskResponseType[]>((state) => state.tasks[tId]);
+  const tasks = useSelector<RootReducerType, ChangeTaskResponseType[]>(
+    (state) => state.tasks[tId],
+  );
   const dispatch = useAppDispatch();
-  const [filter, setFilter] = useState<FilterType>('All');
+  const [filter, setFilter] = useState<FilterType>("All");
 
   useEffect(() => {
     dispatch(setTaskTC(tId));
   }, []);
 
   const onClickFilterHanlder = useCallback((filter: FilterType) => {
-    const newFilter = filter === 'All' ? 'All' : filter === 'Active' ? 'Active' : 'Complited';
+    const newFilter =
+      filter === "All" ? "All" : filter === "Active" ? "Active" : "Complited";
     setFilter(newFilter);
   }, []);
 
@@ -28,14 +36,14 @@ export const useTask = (
     (id: string, status: number) => {
       dispatch(changeTaskTC(tId, id, { status }));
     },
-    [dispatch, tId, changeTaskTC]
+    [dispatch, tId, changeTaskTC],
   );
 
   const deleteTask = useCallback(
     (id: string) => {
       dispatch(deleteTaskTC(tId, id));
     },
-    [dispatch, tId, deleteTaskTC]
+    [dispatch, tId, deleteTaskTC],
   );
 
   const onCLickDeleteTodoHanlder = useCallback(() => {
@@ -46,27 +54,27 @@ export const useTask = (
     (value: string) => {
       dispatch(addTaskTC(tId, value));
     },
-    [dispatch, tId, addTaskTC]
+    [dispatch, tId, addTaskTC],
   );
 
   const editTitleTask = useCallback(
     (id: string, newTitle: string) => {
       dispatch(changeTaskTC(tId, id, { title: newTitle }));
     },
-    [dispatch, tId, changeTaskTC]
+    [dispatch, tId, changeTaskTC],
   );
 
   const editTitleHandlerTodo = useCallback(
     (newTitle: string) => {
       editTitleTodo(tId, newTitle);
     },
-    [tId]
+    [tId],
   );
 
   const filteredTasks =
-    filter === 'All'
+    filter === "All"
       ? tasks
-      : filter === 'Active'
+      : filter === "Active"
         ? tasks.filter((el) => !el.status)
         : tasks.filter((el) => el.status);
 

@@ -6,14 +6,13 @@ import { initialTodolistsState } from "../store/todolists-reducer";
 import { Provider } from "react-redux";
 import { store } from "../store/store";
 
-
 const meta: Meta<typeof Todolist> = {
   title: "Todolist",
   component: Todolist,
   parameters: {
     layout: "centered",
   },
-  decorators: Story => <Provider store={store}>{Story()}</Provider>,
+  decorators: (Story) => <Provider store={store}>{Story()}</Provider>,
 
   tags: ["autodocs"],
   args: {

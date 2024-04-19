@@ -1,11 +1,11 @@
 import { Checkbox } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { EditableSpan } from "../../../otherComponents/editableSpan/EditableSpan";
+import { EditableSpan } from "otherComponents/editableSpan/EditableSpan";
 import s from "./Task.module.css";
 import React, { ChangeEvent, useCallback } from "react";
 
-import { ChangeTaskResponseType, TasksStatuses } from "../../../api/api";
-import { StatusType } from "../../../store/app-reducer";
+import { ChangeTaskResponseType, TasksStatuses } from "api/api";
+import { StatusType } from "store/app-reducer";
 
 export const Task = React.memo((props: TaskTypeProps) => {
   console.log(`Task`);
@@ -17,13 +17,16 @@ export const Task = React.memo((props: TaskTypeProps) => {
     (newTitle: string) => {
       editTitle(id, newTitle);
     },
-    [editTitle]
+    [editTitle],
   );
   const onChangeStatusHandler = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
-      onChangeStatus(id, e.currentTarget.checked ? TasksStatuses.Completed : TasksStatuses.New);
+      onChangeStatus(
+        id,
+        e.currentTarget.checked ? TasksStatuses.Completed : TasksStatuses.New,
+      );
     },
-    [onChangeStatus]
+    [onChangeStatus],
   );
   const onCLickDeleteTaskHanlder = useCallback(() => {
     deleteTask(id);

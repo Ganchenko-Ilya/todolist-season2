@@ -1,9 +1,14 @@
-import React, { ChangeEvent, KeyboardEvent, useCallback, useState } from "react";
+import React, {
+  ChangeEvent,
+  KeyboardEvent,
+  useCallback,
+  useState,
+} from "react";
 import s from "./InputAddItemForm.module.css";
 
 import AddIcon from "@mui/icons-material/Add";
 import { TextField } from "@mui/material";
-import { StatusType } from "../../store/app-reducer";
+import { StatusType } from "store/app-reducer";
 type InputAddTaskProps = {
   addItem: (value: string) => void;
   helpText: string;
@@ -33,7 +38,7 @@ export const InputAddItemForm = React.memo((props: InputAddTaskProps) => {
     (e: KeyboardEvent<HTMLInputElement>) => {
       if (e.key === "Enter") onClickOnKeyDownHandler();
     },
-    [onClickOnKeyDownHandler]
+    [onClickOnKeyDownHandler],
   );
 
   return (

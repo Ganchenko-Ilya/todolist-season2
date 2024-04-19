@@ -1,12 +1,12 @@
-import React from 'react';
-import s from './Todolist.module.css';
-import { InputAddItemForm } from '../../otherComponents/inputAddItemForm/InputAddItemForm';
-import { EditableSpan } from '../../otherComponents/editableSpan/EditableSpan';
-import { Button, Paper } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { Task } from './Task/Task';
-import { useTask } from './hooks/useTask';
-import { StatusType } from '../../store/app-reducer';
+import React from "react";
+import s from "./Todolist.module.css";
+import { InputAddItemForm } from "otherComponents/inputAddItemForm/InputAddItemForm";
+import { EditableSpan } from "otherComponents/editableSpan/EditableSpan";
+import { Button, Paper } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { Task } from "./Task/Task";
+import { useTask } from "./hooks/useTask";
+import { StatusType } from "store/app-reducer";
 
 type TodolistProps = {
   tId: string;
@@ -17,7 +17,7 @@ type TodolistProps = {
 };
 
 export const Todolist = React.memo((props: TodolistProps) => {
-  console.log('Todolist');
+  console.log("Todolist");
   const { tId, titleTodo, statusTodo, deleteTodo, editTitleTodo } = props;
   const {
     filter,
@@ -44,16 +44,20 @@ export const Todolist = React.memo((props: TodolistProps) => {
               />
               <DeleteIcon
                 style={
-                  statusTodo === 'loading'
-                    ? { pointerEvents: 'none', opacity: 0.5, cursor: 'pointer' }
-                    : { cursor: 'pointer' }
+                  statusTodo === "loading"
+                    ? { pointerEvents: "none", opacity: 0.5, cursor: "pointer" }
+                    : { cursor: "pointer" }
                 }
                 onClick={onCLickDeleteTodoHanlder}
               />
             </h3>
           </div>
 
-          <InputAddItemForm statusTodo={statusTodo} addItem={addTaskHandler} helpText='Add Task' />
+          <InputAddItemForm
+            statusTodo={statusTodo}
+            addItem={addTaskHandler}
+            helpText="Add Task"
+          />
           <div className={s.wrapperListTasks}>
             <ul>
               {filteredTasks.map((el) => (
@@ -71,23 +75,23 @@ export const Todolist = React.memo((props: TodolistProps) => {
 
           <div className={s.buttonFilters}>
             <Button
-              size='small'
-              onClick={() => onClickFilterHanlder('All')}
-              variant={filter === 'All' ? 'contained' : 'outlined'}
+              size="small"
+              onClick={() => onClickFilterHanlder("All")}
+              variant={filter === "All" ? "contained" : "outlined"}
             >
               All
             </Button>
             <Button
-              size='small'
-              onClick={() => onClickFilterHanlder('Active')}
-              variant={filter === 'Active' ? 'contained' : 'outlined'}
+              size="small"
+              onClick={() => onClickFilterHanlder("Active")}
+              variant={filter === "Active" ? "contained" : "outlined"}
             >
               Active
             </Button>
             <Button
-              size='small'
-              onClick={() => onClickFilterHanlder('Complited')}
-              variant={filter === 'Complited' ? 'contained' : 'outlined'}
+              size="small"
+              onClick={() => onClickFilterHanlder("Complited")}
+              variant={filter === "Complited" ? "contained" : "outlined"}
             >
               Complited
             </Button>

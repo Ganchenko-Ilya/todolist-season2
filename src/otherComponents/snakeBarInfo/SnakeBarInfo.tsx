@@ -1,11 +1,13 @@
-import { RootReducerType } from '../../store/store';
-import { useSelector } from 'react-redux';
-import { SnakeBarInfoWrapper } from './SnakeBarInfoWrapper';
+import { RootReducerType } from "store/store";
+import { useSelector } from "react-redux";
+import { SnakeBarInfoWrapper } from "./SnakeBarInfoWrapper";
 
 export const SnakeBarInfo = () => {
-  const errorInfo = useSelector<RootReducerType, string | null>((state) => state.app.errorInfo);
+  const errorInfo = useSelector<RootReducerType, string | null>(
+    (state) => state.app.errorInfo,
+  );
   const succeededInfo = useSelector<RootReducerType, string | null>(
-    (state) => state.app.succeededInfo
+    (state) => state.app.succeededInfo,
   );
   let info = null;
 
@@ -16,5 +18,7 @@ export const SnakeBarInfo = () => {
     info = succeededInfo;
   }
 
-  return <>{!!info && <SnakeBarInfoWrapper errorInfo={errorInfo} info={info} />}</>;
+  return (
+    <>{!!info && <SnakeBarInfoWrapper errorInfo={errorInfo} info={info} />}</>
+  );
 };

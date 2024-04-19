@@ -36,7 +36,7 @@ export const ExampleTask: Story = {
       order: 0,
       startDate: "",
       title: "12312",
-      statusLoad:'idle'
+      statusLoad: "idle",
     },
   },
 };

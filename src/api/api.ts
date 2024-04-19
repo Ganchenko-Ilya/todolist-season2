@@ -1,10 +1,10 @@
-import axios from 'axios';
-import { ModelChangeType } from '../store/tasks-reducer';
-import { StatusType } from '../store/app-reducer';
+import axios from "axios";
+import { ModelChangeType } from "../store/tasks-reducer";
+import { StatusType } from "../store/app-reducer";
 
 const instance = axios.create({
   withCredentials: true,
-  baseURL: 'https://social-network.samuraijs.com/api/1.1/',
+  baseURL: "https://social-network.samuraijs.com/api/1.1/",
 });
 
 export const todolistsApi = {
@@ -12,9 +12,12 @@ export const todolistsApi = {
     return instance.get<TodolistsResponse[]>(`todo-lists`);
   },
   addTodolist(title: string) {
-    return instance.post<ResultResponse<{ item: TodolistsResponse }>>(`todo-lists`, {
-      title,
-    });
+    return instance.post<ResultResponse<{ item: TodolistsResponse }>>(
+      `todo-lists`,
+      {
+        title,
+      },
+    );
   },
   deleteTodolist(id: string) {
     return instance.delete<ResultResponse>(`todo-lists/${id}`);
@@ -26,14 +29,17 @@ export const todolistsApi = {
     return instance.get<TaskResponse>(`todo-lists/${id}/tasks`);
   },
   addTask(tId: string, title: string) {
-    return instance.post<ResultResponse<{ item: TaskItemResponse }>>(`todo-lists/${tId}/tasks`, {
-      title,
-    });
+    return instance.post<ResultResponse<{ item: TaskItemResponse }>>(
+      `todo-lists/${tId}/tasks`,
+      {
+        title,
+      },
+    );
   },
   changeTask(tId: string, id: string, model: ModelChangeType) {
     return instance.put<ResultResponse<{ item: TaskItemResponse }>>(
       `todo-lists/${tId}/tasks/${id}`,
-      model
+      model,
     );
   },
   deleteTask(tId: string, id: string) {
@@ -43,17 +49,20 @@ export const todolistsApi = {
 
 export const authApi = {
   logIn(userData: useDataRequestType) {
-    return instance.post<ResultResponse<{ userId: number }>>('auth/login', userData);
+    return instance.post<ResultResponse<{ userId: number }>>(
+      "auth/login",
+      userData,
+    );
   },
   logout() {
-    return instance.delete<ResultResponse>('auth/login');
+    return instance.delete<ResultResponse>("auth/login");
   },
   captcha() {
-    return instance.get<{ url: string }>('security/get-captcha-url');
+    return instance.get<{ url: string }>("security/get-captcha-url");
   },
-  authMe(){
-    return instance.get<ResultResponse<AutMeResponse>>('auth/me')
-  }
+  authMe() {
+    return instance.get<ResultResponse<AutMeResponse>>("auth/me");
+  },
 };
 
 export enum TasksStatuses {
@@ -70,10 +79,10 @@ export enum TodoTaskPriority {
   Later = 4,
 }
 export type AutMeResponse = {
-  id:string 
-  email:string 
-  login:string
-}
+  id: string;
+  email: string;
+  login: string;
+};
 export type AddTodoType = {
   statusTodo: StatusType;
 };

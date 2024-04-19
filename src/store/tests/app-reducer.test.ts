@@ -1,4 +1,9 @@
-import { InitialStateType, appReducer, changeAppStatusAC, setInfoAC } from "../app-reducer";
+import {
+  InitialStateType,
+  appReducer,
+  changeAppStatusAC,
+  setInfoAC,
+} from "store/app-reducer";
 
 const appState: InitialStateType = {
   errorInfo: null,

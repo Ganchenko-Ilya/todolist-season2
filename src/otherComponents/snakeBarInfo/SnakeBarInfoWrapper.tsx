@@ -14,7 +14,7 @@ export const SnakeBarInfoWrapper = React.memo(
       event?: React.SyntheticEvent | Event,
       reason?: string,
     ) => {
-      dispatch(setInfoAC({ errorInfo: null, succeededInfo: null }));
+      dispatch(setInfoAC({message:{ errorInfo: null, succeededInfo: null }}));
     };
 
     return (

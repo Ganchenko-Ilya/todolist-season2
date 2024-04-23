@@ -14,6 +14,7 @@ type TodolistProps = {
   statusTodo: StatusType;
   deleteTodo: (tId: string) => void;
   editTitleTodo: (tId: string, newTitle: string) => void;
+
 };
 
 export const Todolist = React.memo((props: TodolistProps) => {

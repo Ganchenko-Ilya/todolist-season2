@@ -96,17 +96,20 @@ beforeEach(() => {
 test("Add Task of todolist by Id", () => {
   const newState = tasksReducer(
     tasks,
-    addTaskAC(todolist2Id, {
-      id: v1(),
-      title: "Snake",
-      status: TasksStatusesTest.New,
-      todoListId: "",
-      priority: 0,
-      addedDate: "",
-      deadline: "",
-      description: null,
-      order: 0,
-      startDate: "",
+    addTaskAC({
+      tId: todolist2Id,
+      newTask: {
+        id: v1(),
+        title: "Snake",
+        status: TasksStatusesTest.New,
+        todoListId: "",
+        priority: 0,
+        addedDate: "",
+        deadline: "",
+        description: null,
+        order: 0,
+        startDate: "",
+      },
     }),
   );
 
@@ -122,7 +125,10 @@ test("Add Task of todolist by Id", () => {
 
 test("Change status task by Id", () => {
   const taskId = tasks[todolist2Id][1].id;
-  const newState = tasksReducer(tasks, changeTaskAC(todolist2Id, taskId, { status: TasksStatusesTest.Completed }));
+  const newState = tasksReducer(
+    tasks,
+    changeTaskAC({ tId: todolist2Id, id: taskId, modelChange: { status: TasksStatusesTest.Completed } }),
+  );
   expect(Object.keys(newState).length).toBe(2);
   expect(newState[todolist2Id].length).toBe(2);
   expect(newState[todolist2Id][1].status).toBe(TasksStatusesTest.Completed);
@@ -133,7 +139,7 @@ test("Change status task by Id", () => {
 
 test("Delete task from todolist by Id ", () => {
   const taskId = tasks[todolist2Id][1].id;
-  const newState = tasksReducer(tasks, deleteTaskAC(todolist2Id, taskId));
+  const newState = tasksReducer(tasks, deleteTaskAC({ tId: todolist2Id, id: taskId }));
   expect(Object.keys(newState).length).toBe(2);
   expect(newState[todolist2Id].length).toBe(1);
   expect(newState[todolist2Id][0].id).not.toBe(taskId);
@@ -142,7 +148,10 @@ test("Delete task from todolist by Id ", () => {
 });
 test("Change title task by Id ", () => {
   const taskId = tasks[todolist2Id][1].id;
-  const newState = tasksReducer(tasks, changeTaskAC(todolist2Id, taskId, { title: "Computer" }));
+  const newState = tasksReducer(
+    tasks,
+    changeTaskAC({ tId: todolist2Id, id: taskId, modelChange: { title: "Computer" } }),
+  );
   expect(Object.keys(newState).length).toBe(2);
   expect(newState[todolist2Id].length).toBe(2);
   expect(newState[todolist2Id][0].title).toBe("book");
@@ -152,13 +161,13 @@ test("Change title task by Id ", () => {
 });
 test("Add todolist and add  empty array for  tasks", () => {
   const todolist3Id = v1();
-  const newState = tasksReducer(tasks, addTodoAC(todolist3Id, "Computer"));
+  const newState = tasksReducer(tasks, addTodoAC({ tId: todolist3Id, title: "Computer" }));
   expect(Object.keys(newState).length).toBe(3);
   expect(Object.keys(newState)[2]).toBe(todolist3Id);
   expect(newState[todolist3Id].length).toBe(0);
 });
 test("Delete key for Tasks after delete todolis", () => {
-  const newState = tasksReducer(tasks, deleteTodoAC(todolist1Id));
+  const newState = tasksReducer(tasks, deleteTodoAC({ tId: todolist1Id }));
 
   expect(Object.keys(newState).length).toBe(1);
   expect(Object.keys(newState)[0]).toBe(todolist2Id);
@@ -166,7 +175,7 @@ test("Delete key for Tasks after delete todolis", () => {
 });
 
 test("Add empty array for keys of tasks", () => {
-  const newState = tasksReducer({}, setTodoAC(todolist));
+  const newState = tasksReducer({}, setTodoAC({ todolists: todolist }));
   const result = Object.keys(newState);
   expect(newState[todolist[0].id]).toBeDefined();
   expect(newState[todolist[0].id].length).toBe(0);
@@ -175,7 +184,10 @@ test("Add empty array for keys of tasks", () => {
 });
 
 test("Change status for loading Task ", () => {
-  const newState = tasksReducer(tasks, changeStatusLoadTaskAC(todolist1Id, tasks[todolist1Id][0].id, "loading"));
+  const newState = tasksReducer(
+    tasks,
+    changeStatusLoadTaskAC({ tId: todolist1Id, id: tasks[todolist1Id][0].id, status: "loading" }),
+  );
 
   expect(newState[todolist1Id][0].statusLoad).toBe("loading");
   expect(newState[todolist2Id][0].statusLoad).toBe("idle");

@@ -11,21 +11,21 @@ export const helpResultFunc = <T = {}>(
 ) => {
   if (res.data.resultCode === 0) {
     callBack();
-    dispatch(changeAppStatusAC("succeeded"));
+    dispatch(changeAppStatusAC({ status: "succeeded" }));
     if (succeededInfo) {
-      dispatch(setInfoAC({ succeededInfo }));
+      dispatch(setInfoAC({ message: { succeededInfo } }));
     }
   } else if (res.data.messages && res.data.resultCode === 1) {
-    dispatch(setInfoAC({ errorInfo: res.data.messages[0] }));
-    dispatch(changeAppStatusAC("failed"));
+    dispatch(setInfoAC({ message: { errorInfo: res.data.messages[0] } }));
+    dispatch(changeAppStatusAC({ status: "failed" }));
   }
 };
 
 export const errorCatchHelpFunc = (dispatch: ThunkAppDispatch, error: unknown) => {
   if (isAxiosError(error)) {
-    dispatch(setInfoAC({ errorInfo: error.message }));
+    dispatch(setInfoAC({ message: { errorInfo: error.message } }));
   } else {
-    dispatch(setInfoAC({ errorInfo: "Some Error" }));
+    dispatch(setInfoAC({ message: { errorInfo: "Some Error" } }));
   }
-  dispatch(changeAppStatusAC("failed"));
+  dispatch(changeAppStatusAC({ status: "failed" }));
 };

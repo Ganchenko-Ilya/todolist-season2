@@ -36,7 +36,7 @@ beforeEach(() => {
 });
 
 test("Delete todolist by Id", () => {
-  const newState = todolistReducer(todolist, deleteTodoAC(todolist1Id));
+  const newState = todolistReducer(todolist, deleteTodoAC({ tId: todolist1Id }));
   expect(newState.length).toBe(1);
 
   expect(newState[0].id).toBe(todolist2Id);
@@ -46,10 +46,7 @@ test("Delete todolist by Id", () => {
 
 test("Add todolist", () => {
   const todolist3Id = v1();
-  const newState = todolistReducer(
-    todolist,
-    addTodoAC(todolist3Id, "Top books"),
-  );
+  const newState = todolistReducer(todolist, addTodoAC({ tId: todolist3Id, title: "Top books" }));
   expect(newState.length).toBe(3);
   expect(newState[0].title).toBe("Top books");
   expect(newState[2].id).toBe(todolist2Id);
@@ -57,10 +54,7 @@ test("Add todolist", () => {
   expect(newState[0].id).toBe(todolist3Id);
 });
 test("Change title of todolist by id", () => {
-  const newState = todolistReducer(
-    todolist,
-    editTitleTodoAC(todolist2Id, "Top cinema"),
-  );
+  const newState = todolistReducer(todolist, editTitleTodoAC({ tId: todolist2Id, title: "Top cinema" }));
   expect(newState[1].title).toBe("Top cinema");
   expect(newState[1].id).toBe(todolist2Id);
   expect(newState[0].title).toBe("What to learn");
@@ -68,17 +62,14 @@ test("Change title of todolist by id", () => {
 });
 
 test("Change status Todo", () => {
-  const newState = todolistReducer(
-    todolist,
-    changeStatusTodoAC(todolist1Id, "loading"),
-  );
+  const newState = todolistReducer(todolist, changeStatusTodoAC({ tId: todolist1Id, status: "loading" }));
 
   expect(newState[0].statusTodo).toBe("loading");
   expect(newState[1].statusTodo).toBe("idle");
 });
 
 test("Set Todo in State", () => {
-  const newState = todolistReducer([], setTodoAC(todolist));
+  const newState = todolistReducer([], setTodoAC({ todolists: todolist }));
 
   expect(newState[0].title).toBe("What to learn");
   expect(newState[1].statusTodo).toBe("idle");

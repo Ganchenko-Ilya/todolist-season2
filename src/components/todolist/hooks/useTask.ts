@@ -1,12 +1,7 @@
 import { useSelector } from "react-redux";
 import { RootReducerType, useAppDispatch } from "../../../store/store";
 import { useCallback, useEffect, useState } from "react";
-import {
-  addTaskTC,
-  changeTaskTC,
-  deleteTaskTC,
-  setTaskTC,
-} from "../../../store/tasks-reducer";
+import { addTaskTC, changeTaskTC, deleteTaskTC, setTaskTC } from "../../../store/tasks-reducer";
 import { ChangeTaskResponseType } from "../../../api/api";
 
 export type FilterType = "All" | "Active" | "Complited";
@@ -16,9 +11,7 @@ export const useTask = (
   deleteTodo: (tId: string) => void,
   editTitleTodo: (tId: string, newTitle: string) => void,
 ) => {
-  const tasks = useSelector<RootReducerType, ChangeTaskResponseType[]>(
-    (state) => state.tasks[tId],
-  );
+  const tasks = useSelector<RootReducerType, ChangeTaskResponseType[]>((state) => state.tasks[tId]);
   const dispatch = useAppDispatch();
   const [filter, setFilter] = useState<FilterType>("All");
 
@@ -27,8 +20,7 @@ export const useTask = (
   }, []);
 
   const onClickFilterHanlder = useCallback((filter: FilterType) => {
-    const newFilter =
-      filter === "All" ? "All" : filter === "Active" ? "Active" : "Complited";
+    const newFilter = filter === "All" ? "All" : filter === "Active" ? "Active" : "Complited";
     setFilter(newFilter);
   }, []);
 
@@ -72,11 +64,7 @@ export const useTask = (
   );
 
   const filteredTasks =
-    filter === "All"
-      ? tasks
-      : filter === "Active"
-        ? tasks.filter((el) => !el.status)
-        : tasks.filter((el) => el.status);
+    filter === "All" ? tasks : filter === "Active" ? tasks.filter((el) => !el.status) : tasks.filter((el) => el.status);
 
   return {
     filter,

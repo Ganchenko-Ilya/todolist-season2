@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { SnakeBarInfoWrapper } from "./SnakeBarInfoWrapper";
 import { useAppSelector } from "shared/store/hooks/useAppSelector";
 
